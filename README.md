@@ -33,7 +33,6 @@ you don't have any inspiration at the moment, here are a couple of ideas:
 - Use the `create-react-app` generator to start your project.
 	- Follow the instructions on this repo to setup the generator: [create-react-app](https://github.com/facebookincubator/create-react-app)
 - Your app should have one HTML page to render your react-redux application
-- There should be 2 container components
 - There should be 5 stateless components
 - There should be 3 routes
 - The Application must make use of `react-router` and proper RESTful routing (should you choose to use react-router v3 please refer to the appropriate [docs](https://github.com/ReactTraining/react-router/tree/v3/docs); docs for v4 can be found [here](https://reacttraining.com/react-router/web/guides/quick-start))
