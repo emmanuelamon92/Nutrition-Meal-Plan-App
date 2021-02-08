@@ -1,4 +1,4 @@
-# Building a client-side application with React-Redux
+# Building a client-side application with React
 
 ## Objectives
 
