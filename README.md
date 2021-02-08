@@ -1,4 +1,4 @@
-# Building a client-side application with React
+# Building a Client-Side Application with React
 
 ## Objectives
 
