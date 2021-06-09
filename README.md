@@ -5,8 +5,7 @@
 1. Build a React single page application from scratch
 2. Apply your knowledge of components, props and state management
 3. Incorporate client-side routing
-4. Use data from external APIs
-5. Persist data in a mock up backend
+5. GET and POST data in a mock up backend
 
 ## React Project Overview
 
@@ -27,12 +26,9 @@ If you don't have any inspiration at the moment, here are a couple of ideas:
 	- Follow the instructions on this repo to setup the generator: [create-react-app](https://github.com/facebookincubator/create-react-app)
 - Your app should have one HTML page to render your react application
 - Your app should use multiple components in a way that keeps your code well organized.
-- There should be 3 routes
-- The Application must make use of `react-router` and proper RESTful routing (should you choose to use react-router v3 please refer to the appropriate [docs](https://github.com/ReactTraining/react-router/tree/v3/docs); docs for v4 can be found [here](https://reacttraining.com/react-router/web/guides/quick-start))
-
-- Your app must incorporate API data. This data can be from a public API or from a GitHub JSON file you create
-- Your app must persist some data using a JSON server as a mock up backend
-
+- Your appp must make use of `react-router`
+	- There should be 3 client-side routes
+- Your app must use `fetch` to GET (read) and POST (create) data on your own JSON server
 - Your application should have some minimal styling: feel free to incorporate a UI framework (like [react-bootstrap][] or [material-ui][]), but if you want to write CSS yourself, go for it!
 
 Go wild! These are only the basic requirements — you're free to add on as much stuff as you'd like.
