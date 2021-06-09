@@ -26,7 +26,7 @@ If you don't have any inspiration at the moment, here are a couple of ideas:
 	- Follow the instructions on this repo to setup the generator: [create-react-app](https://github.com/facebookincubator/create-react-app)
 - Your app should have one HTML page to render your react application
 - Your app should use multiple components in a way that keeps your code well organized.
-- Your appp must make use of `react-router`
+- Your app must make use of `react-router`
 	- There should be 3 client-side routes
 - Your app must use `fetch` to GET (read) and POST (create) data on your own JSON server
 - Your application should have some minimal styling: feel free to incorporate a UI framework (like [react-bootstrap][] or [material-ui][]), but if you want to write CSS yourself, go for it!
