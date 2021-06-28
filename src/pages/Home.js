@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-// import MyRecipes from './MyRecipes';
-// import MyProfile from './MyProfile';
 import '../source/App.css';
 
 //Time: Plan for One day or One week
@@ -8,14 +6,15 @@ import '../source/App.css';
 //Diet: Pescatarian, Vegitarian, or Vegan
 //Alergies: ?
 export default function Home() {
-
-    const [time, setTime] = useState('time')
-    const [calories, setCalories] = useState('2000')
-    const [diet, setDiet] = useState('diet')
-    const [allergies, setAllergies] = useState('allergies')
+//setTime:prop(time) in app component
+    // const [time, setTime] = useState('day')
+    // const [calories, setCalories] = useState('2000')
+    // const [diet, setDiet] = useState('diet')
+    // const [allergies, setAllergies] = useState('allergies')
 
     const submitForm = e => {
         e.preventDefault();
+        //somefunction(callbackfn);
         console.log(time, calories, diet, allergies)
     }
       
