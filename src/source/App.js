@@ -11,17 +11,24 @@ import { Link } from 'react-router-dom';
 export default function App() {
 
   const [time, setTime] = useState('day')
-  const [calories, setCalories] = useState('2000')
-  const [diet, setDiet] = useState('diet')
-  const [allergies, setAllergies] = useState('allergies')
-
-  const handleSubmit = () => {
-    setTime(time);
-    setCalories(calories);
-    setDiet(diet);
-    setAllergies(allergies);
+  const handleTimeChange = (e) => {
+    setTime(e.target.value);
   }
 
+  const [calories, setCalories] = useState('2000')
+  const handleCaloriesChange = (e) => {
+    setCalories(e.target.value);
+  }
+
+  const [diet, setDiet] = useState('diet')
+  const handleDietChange = (e) => {
+    setDiet(e.target.value);
+  }
+
+  const [allergies, setAllergies] = useState('allergies')
+  const handleAllergiesChange = (e) => {
+    setAllergies(e.target.value);
+  }
 
   const fetchData = () => {
     const url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/mealplans/generate?targetCalories=2600&timeFrame=day"
@@ -50,8 +57,9 @@ export default function App() {
       })
   }, [])
 
-
   console.log(meals)
+
+  console.log(time, calories, diet, allergies)
   
   return (
     <>
@@ -71,8 +79,7 @@ export default function App() {
       <Switch>
         <Route path='/myprofile' component={MyProfile}></Route>
         <Route path='/myrecipes' component={MyRecipes}></Route>
-        <Route path='/' component={Home}></Route>
-        {/* <Home time= calories= diet= allergies= /> */}
+        <Route path='/' render={(props) => <Home {...props} onTimeChange={handleTimeChange} onCaloriesChange={handleCaloriesChange} onDietChange={handleDietChange} onAllergiesChange={handleAllergiesChange} />}></Route>
       </Switch>
     </>
   );
