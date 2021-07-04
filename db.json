@@ -1,3 +1,11 @@
 {
-  "recipes": []
+  "recipes": [
+    {
+      "title": "Ombre Buttercream Frosting",
+      "readyInMinutes": 25,
+      "servings": 12,
+      "sourceUrl": "http://www.bettycrocker.com/recipes/ombre-buttercream-frosting/c287dd1c-6c8b-4c9c-8119-fad5fdab0779",
+      "id": 1
+    }
+  ]
 }

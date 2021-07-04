@@ -31,9 +31,11 @@ export default function App() {
 
   const [meals, setMeals] = useState([])
 
-    //FETCH REQUEST
-    const fetchMeals = (url) => {
-      // Generate Meal Plan
+  //FETCH REQUEST
+  const fetchMeals = (url) => {
+      
+      // GET FROM API
+    
       const configObj = {
           "method": "GET",
           "headers": {
@@ -42,9 +44,11 @@ export default function App() {
           }
       }
       fetch(url, configObj)
-          .then(response => response.json())
-          .then(data => {
-
+        .then(response => response.json())
+        .then(data => {
+          
+              //POST TO JSON
+          
               data.meals.forEach(meal => {
                   const {title, readyInMinutes, servings, sourceUrl } = meal
                   const mealDataPost = {
@@ -67,29 +71,32 @@ export default function App() {
           .catch(err => console.error(err))
     }
   
+  //GET FROM JSON FILE
+  
   const fetchCurrentMeals = () => {
     fetch('http://localhost:3001/recipes')
       .then(res => res.json())
       .then(data => setMeals(data))
   }
-  
   useEffect(fetchCurrentMeals, [])
 
   const filteredMeals = meals.filter(meal => meal.title)
 
   //USED FOR THE MYPROFILE COMPONENT
+
   const userInfo = <h3>{`Calories: ${calories} | Allergies: ${allergies} | Diet: ${diet}`}</h3>
 
-  const history = useHistory();
-  
   //SUBMIT HANDLER
+
+  const history = useHistory();
   const handleSubmitForm = (e) => {
       e.preventDefault();
       
     const url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/mealplans/generate?targetCalories=" + calories + "&timeFrame=" + time + "&diet=" + diet + "&exclude=" + allergies
     fetchMeals(url)
 
-    //after submit form redirect user
+    //REDIRECT AFTER SUBMIT BUTTON
+
     history.push('./MyRecipes/');
   }
    

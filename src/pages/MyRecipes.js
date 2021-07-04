@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../source/App.css';
 
 export default function MyRecipes({ meals }) {
