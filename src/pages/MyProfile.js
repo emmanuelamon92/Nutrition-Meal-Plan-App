@@ -5,12 +5,12 @@ import '../source/App.css';
 export default function MyProfile(props) {
     
     return (
-        <>
+        <div className='page-body'>
             <h1 className='my-profile'>MY PROFILE</h1>
             <h2>User Nutrition Information:</h2>
             <h3>Data You Submitted:</h3>
             { props.userInfo }
-        </>
+        </div>
     )
 };
 

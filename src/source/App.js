@@ -4,6 +4,8 @@ import { Switch, Route, Link, useHistory } from 'react-router-dom';
 import Home from '../pages/Home';
 import MyRecipes from '../pages/MyRecipes';
 import MyProfile from '../pages/MyProfile';
+import CounterButton from '../pages/CounterButton';
+
 
 export default function App() {
 
@@ -28,6 +30,7 @@ export default function App() {
   const handleAllergiesChange = (e) => {
     setAllergies(e.target.value);
   }
+
 
   const [meals, setMeals] = useState([])
 
@@ -104,9 +107,10 @@ export default function App() {
     <>
       <nav className='navbar'>
         <div className='nav-container'>
-            <Link to='/' className='nav-item'>HOME</Link>
-            <Link to='/myrecipes' className='nav-item'>MY RECIPES</Link>
-            <Link to='/myprofile' className='nav-item'>MY PROFILE</Link>
+          <Link to='/' className='left-ali' >NUTRITION MEAL PLAN APP</Link>
+          <Link to='/myprofile' className='nav-item'>MY PROFILE</Link>
+          <Link to='/myrecipes' className='nav-item'>MY RECIPES</Link>
+          <Link to='/' className='nav-item'>HOME</Link>
         </div>
       </nav>
       <Switch>
@@ -114,6 +118,8 @@ export default function App() {
         <Route path='/myrecipes' render={() => <MyRecipes meals={filteredMeals} />}></Route>
         <Route path='/' render={() => <Home onSubmitForm={handleSubmitForm} onTimeChange={handleTimeChange} onCaloriesChange={handleCaloriesChange} onDietChange={handleDietChange} onAllergiesChange={handleAllergiesChange} />}></Route>
       </Switch>
+      <br/>
+      {/* <CounterButton /> */}
     </>
   );
 }

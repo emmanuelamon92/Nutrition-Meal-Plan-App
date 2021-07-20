@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '../source/App.css';
 
 export default function MyRecipes({ meals }) {
@@ -12,9 +12,11 @@ export default function MyRecipes({ meals }) {
     }
 
     return (
-        <div className="meal">
-            <h1>MY RECIPES</h1>
-            {renderMeals()}
+        <div className='page-body'>
+            <div className="meal">
+                <h1>MY RECIPES</h1>
+                {renderMeals()}
+            </div>
         </div>
     )
 }
