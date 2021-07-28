@@ -4,51 +4,47 @@
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-size: 23px;
 }
-
-html {
-  background: url("../img/lily-banse--YHSwy6uqvk-unsplash.jpg");
-  background-size: cover;
+.home {
+  margin-top: 4.5%;
 }
 .navbar {
   padding: 5px;
   z-index: -1;
   font-size: larger;
 }
-.left-ali {
-  padding: 7px;
-  text-decoration: none;
-  float: left;
-  font-size: 20px;
+.prop-color {
+  color: red;
 }
 .nav-item {
-  /* padding: 5px 8px 5px 8px; */
   padding: 7px;
   text-decoration: none;
   color: white;
   float: right;
   font-size: 20px;
 }
-/* .nav-container {
-  background-color: rgb(14, 27, 37);
-  opacity: 0.5;
-  padding: 5px;
-  position: absolute;
-  z-index: -1;
-} */
+
+html {
+  background: url("../../img/lily-banse--YHSwy6uqvk-unsplash.jpg");
+  background-size: cover;
+}
+
+.left-ali {
+  padding: 7px;
+  text-decoration: none;
+  float: left;
+  font-size: 20px;
+}
 
 html::after {
   content: "";
-  filter: blur(50px);
-  -webkit-filter: blur(50px);
-  /* Full height */
+  filter: blur(75px);
+  -webkit-filter: blur(75px);
   height: 100%;
-
-  /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   background-color: rgb(14, 27, 37);
-  opacity: 0.59;
+  opacity: 0.85;
   top: 0;
   left: 0;
   bottom: 0;
@@ -56,17 +52,6 @@ html::after {
   position: absolute;
   z-index: -1;
 }
-
-/* .page-body {
-  position: relative;
-  text-align: center;
-  background-color: rgb(14, 27, 37);
-  opacity: 0.75;
-  display: inline-block;
-  padding: 0px 20px 5px 20px;
-  margin-top: 50px;
-  border-radius: 10%;
-} */
 
 body {
   padding: 0;
@@ -93,6 +78,9 @@ a:active {
   color: red;
 }
 
+form {
+  text-align: center;
+}
 .inputs {
   position: relative;
   text-align: center;
@@ -100,16 +88,13 @@ a:active {
   opacity: 0.75;
   display: inline-block;
   padding: 5px 20px 20px 20px;
-  margin-top: 5px;
+  margin-top: 13px;
   border-radius: 10%;
 }
-form {
-  text-align: center;
-}
-
 h1,
 h2,
-h3 {
+h3,
+p {
   color: white;
 }
 
@@ -122,3 +107,14 @@ h1 {
 label {
   color: white;
 }
+
+/* .page-body {
+  position: relative;
+  text-align: center;
+  background-color: rgb(14, 27, 37);
+  opacity: 0.75;
+  display: inline-block;
+  padding: 0px 20px 5px 20px;
+  margin-top: 50px;
+  border-radius: 10%;
+} */
