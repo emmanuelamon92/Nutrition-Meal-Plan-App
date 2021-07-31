@@ -17,7 +17,7 @@ export default function MyProfile(props) {
     const renderUserInfo = () => {
         return userInfo.map(input => {
             if (input.id % 3 === 1){
-                return <h3>Calories: <span className='prop-color'>{input.calories} | Diet: <span className='prop-color'>{input.diet}</span></span>  | Allergies: <span className='prop-color'>{input.allergies}</span></h3>
+                return <h3>Calories: <span className='prop-color'>{input.calories}</span> | Diet: <span className='prop-color'>{input.diet}</span>  | Allergies: <span className='prop-color'>{input.allergies}</span></h3>
             }
         })
     }
