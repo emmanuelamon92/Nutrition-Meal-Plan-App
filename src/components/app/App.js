@@ -4,6 +4,7 @@ import { Switch, Route, Link, useHistory } from 'react-router-dom';
 import Home from '../Home';
 import MyRecipes from '../MyRecipes';
 import MyProfile from '../MyProfile';
+require('dotenv').config();
 // import CounterButton from '../CounterButton';
 
 
@@ -38,7 +39,9 @@ export default function App() {
   const [meals, setMeals] = useState([])
   const [userInfo, setUserInfo] = useState([])
 
+  const api_key = process.env.API_KEY
 
+  
 //<--- STATE DECLARATIONS END --->
 
 
@@ -49,7 +52,8 @@ export default function App() {
       const configObj = {
           "method": "GET",
           "headers": {
-              "x-rapidapi-key": "3ac613e275mshe29fb560ec9f8a9p1516fdjsn4288cb3518a5",
+              // "x-rapidapi-key": process.env.API_KEY,
+              "x-rapidapi-key": api_key,
               "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
           }
       }
