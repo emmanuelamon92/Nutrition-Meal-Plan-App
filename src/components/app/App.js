@@ -41,7 +41,7 @@ export default function App() {
 
   const api_key = process.env.API_KEY
 
-  
+   
 //<--- STATE DECLARATIONS END --->
 
 
@@ -195,6 +195,7 @@ const handleFetchedUserInfo = () => {
       <nav className='navbar'>
         <div className='nav-container'>
           <Link to='/' className='left-ali' >NUTRITIONAL RECIPE APP</Link>
+          <Link to='/signout' className='nav-item'>Sign Out</Link>
           <Link to='/myprofile'  className='nav-item'>My Profile</Link>
           <Link to='/myrecipes' onClick={ handleFetchedMeals } className='nav-item'>My Recipes</Link>
           <Link to='/' className='nav-item'>Home</Link>
