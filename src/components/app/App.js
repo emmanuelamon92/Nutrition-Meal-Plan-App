@@ -4,6 +4,9 @@ import { Switch, Route, Link, useHistory } from 'react-router-dom';
 import Home from '../Home';
 import MyRecipes from '../MyRecipes';
 import MyProfile from '../MyProfile';
+import LogIn from '../auth/LogIn';
+import SignUp from '../auth/SignUp';
+
 require('dotenv').config();
 // import CounterButton from '../CounterButton';
 
@@ -192,19 +195,23 @@ const handleFetchedUserInfo = () => {
 
   return (
     <>
-      <nav className='navbar'>
-        <div className='nav-container'>
-          <Link to='/' className='left-ali' >NUTRITIONAL RECIPE APP</Link>
-          <Link to='/signout' className='nav-item'>Sign Out</Link>
-          <Link to='/myprofile'  className='nav-item'>My Profile</Link>
-          <Link to='/myrecipes' onClick={ handleFetchedMeals } className='nav-item'>My Recipes</Link>
-          <Link to='/' className='nav-item'>Home</Link>
-        </div>
-      </nav>
       <Switch>
-        <Route path='/myprofile' render={() => <MyProfile userInfo={ userInfo } calories={ calories } allergies={ allergies } diet={ diet }/>}></Route>
-        <Route path='/myrecipes' render={() => <MyRecipes userInfo={ userInfo } meals={meals} onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
-        <Route path='/' render={() => <Home onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
+        <Route path='/signup' render={() => <SignUp></SignUp>}></Route>
+        <Route path='/login' render={() => <LogIn></LogIn>}></Route>
+        <div>
+          <nav className='navbar'>
+            <div className='nav-container'>
+              <Link to='/' className='left-ali' >NUTRITIONAL RECIPE APP</Link>
+              <Link to='/login' className='nav-item'>Sign Out</Link>
+              <Link to='/myprofile'  className='nav-item'>My Profile</Link>
+              <Link to='/myrecipes' onClick={ handleFetchedMeals } className='nav-item'>My Recipes</Link>
+              <Link to='/' className='nav-item'>Home</Link>
+            </div>
+          </nav>
+          <Route path='/myprofile' render={() => <MyProfile userInfo={ userInfo } calories={ calories } allergies={ allergies } diet={ diet }/>}></Route>
+          <Route path='/myrecipes' render={() => <MyRecipes userInfo={ userInfo } meals={meals} onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
+          <Route path='/' render={() => <Home onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
+        </div>
       </Switch>
       <br/>
       {/* <CounterButton /> */}

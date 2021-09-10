@@ -1,7 +1,7 @@
 <!-- prettier-ignore-start -->
-# Medical Records App
+# Nutrition Meal Plan App
 
-## Patient Stories
+## User Stories
     - user sign in
     - *Home* - user puts in meal data
         - Target Calories
@@ -26,60 +26,38 @@
                 - deserts
    
 ## user model
-    - has_many :recipes
-    - has_many :favorites
-    - has_many :, through: :
+    - has_many :meals
+    - has_one :profile
 
-## recipe model
-    - belongs_to :
-    - belongs_to :
+## profile model
+    - belongs_to :user  
 
-##  model
-    - has_many :
-    - has_many :, through: :
-    - belongs_to :
+## meal model
+    - belongs_to :user
 
-##  model
-    - has_many :
-    - has_many :, through: :
+:user ---< :meal
+  |
+  |
+  |
+  A
+:profile
 
-## model
-    - belongs_to :
-    - belongs_to :
+## user attributes:
+    :username
+    :password_digest
 
-:user ---< :meal >--- :
-    |                                  |
-    |                                  |
-    A                                  |
-:                                      |
-    V                                  |
-    |                                  |
-    |                                  |
-: >---------------------------
+## profile attributes:
+    :name
+    :age
+    :current_weight
+    :target_weight
 
-## patient attributes:
-    :
-    :
-    :
-
-##  attributes:
-    :
-    :
-
-## doctor attributes:
-    :
-    :
-
-## patient_ attributes:
-    :
-    :
-    :
-
-## _review attributes:
-    :
-    :
-    :
-    :
+## meal attributes:
+    :title
+    :readyInMinutes
+    :servings
+    :sourceUrl
+    :favorite
 
 <!-- prettier-ignore-end -->
 

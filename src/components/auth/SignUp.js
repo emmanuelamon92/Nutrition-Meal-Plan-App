@@ -1,7 +1,6 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Route, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Form, Button } from "react-bootstrap";
 
 export default function SignUp() {
     
@@ -71,31 +70,30 @@ export default function SignUp() {
     }
 
     return (
-        <>  
+        <>
             <h1>Sign Up</h1>
-            <Form onSubmit={handleSubmit(onSubmit)}>
-                <Form.Group>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div>
+                    <div className="mb-3" controlId="form_basic_username">
+                        <input type="username" placeholder="Username" {...register("username", {required: true, message: 'Required'})}/>
+                        {/* {errors.username && errors.username.type === "required" && <span>This is required</span>} */}
+                    </div>
                     <br />
-                    <Form.Group className="mb-3" controlId="form_basic_username">
-                        <Form.Control {...register("username")} type="username" placeholder="Username" />
-                        {errors.username && errors.username.type === "required" && <span>This is required</span>}
-                    </Form.Group>
+                    <div className="mb-3" controlId="form_basic_password_sign_up">
+                        <input type="password" placeholder="Password" {...register("password", {required: true})}/>
+                        {/* {errors.password && errors.password.type === "required" && <span>This is required</span>} */}
+                    </div>
                     <br />
-                    <Form.Group className="mb-3" controlId="form_basic_password_sign_up">
-                        <Form.Control {...register("password")} type="password" placeholder="Password" />
-                        {errors.password && errors.password.type === "required" && <span>This is required</span>}
-                    </Form.Group>
-                    <br />
-                    <Form.Group className="mb-3" controlId="form_basic_password_confirmation">
-                        <Form.Control {...register("password_confirmation")} type="password_confirmation" placeholder="Confirm Password" />
-                        {errors.password_confirmation && errors.password_confirmation.type === "required" && <span>This is required</span>}
-                    </Form.Group>
-                </Form.Group>
+                    <div className="mb-3" controlId="form_basic_password_confirmation">
+                        <input type="password_confirmation" placeholder="Confirm Password" {...register("password_confirmation", {required: true})}/>
+                        {/* {errors.password_confirmation && errors.password_confirmation.type === "required" && <span>This is required</span>} */}
+                    </div>
+                </div>
                 <br />
-                <Button variant="primary" type="submit">Sign Up</Button>
+                <button variant="primary" type="submit">Sign Up</button>
                 <br /><br />
                 <Link to="/login">SignIn</Link>
-            </Form>
+            </form>
         </ >
     );
 }
