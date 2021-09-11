@@ -44,7 +44,19 @@ export default function App() {
 
   const api_key = process.env.API_KEY
 
+  const [isLoggedIn, setIsLoggedIn] = useState({})
+  const [user, setUser] = useState(false)
    
+  const handleLoggedIn = (data) => {
+    setIsLoggedIn(true);
+    setUser(data.user);
+  }
+
+  const handleLoggedOut = () => {
+    setIsLoggedIn(false);
+    setUser({})
+  }
+  
 //<--- STATE DECLARATIONS END --->
 
 
@@ -208,9 +220,9 @@ const handleFetchedUserInfo = () => {
               <Link to='/' className='nav-item'>Home</Link>
             </div>
           </nav>
-          <Route path='/myprofile' render={() => <MyProfile userInfo={ userInfo } calories={ calories } allergies={ allergies } diet={ diet }/>}></Route>
-          <Route path='/myrecipes' render={() => <MyRecipes userInfo={ userInfo } meals={meals} onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
-          <Route path='/' render={() => <Home onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
+          <Route exact path='/' render={() => <Home onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
+          <Route exact path='/myrecipes' render={() => <MyRecipes userInfo={ userInfo } meals={meals} onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
+          <Route exact path='/myprofile' render={() => <MyProfile userInfo={ userInfo } calories={ calories } allergies={ allergies } diet={ diet }/>}></Route>
         </div>
       </Switch>
       <br/>
