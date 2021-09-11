@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Switch, Route, Link, useHistory } from 'react-router-dom';
 import Home from '../Home';
@@ -47,6 +47,15 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState({})
   const [user, setUser] = useState(false)
    
+  const handleLoggedIn = (data) => {
+    setIsLoggedIn(true);
+    setUser(data.user);
+  }
+
+  const handleLoggedOut = () => {
+    setIsLoggedIn(false);
+    setUser({})
+  }
 
 //<--- STATE DECLARATIONS END --->
 
@@ -183,8 +192,8 @@ const handleFetchedUserInfo = () => {
             "Accepts": "application/json"
         },
     }
-    mealIds.forEach(mealId => fetch('http://localhost:3001/users/' + mealId, config))
-    mealIds.forEach(mealId => fetch('http://localhost:3001/meals/' + mealId, config))
+    mealIds.forEach(mealId => fetch('http://localhost:3001/userInfo/' + mealId, config))
+    mealIds.forEach(mealId => fetch('http://localhost:3001/recipes/' + mealId, config))
     //userIds.forEach(userId => fetch('http://localhost:3001/userInfo/' + userId, config))
 
     // CALLING "GET REQUEST RECIPES AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER DB.JSON DELETE REQUEST
@@ -195,37 +204,6 @@ const handleFetchedUserInfo = () => {
 
   // <--- CLEAR DB.JSON FILE DATABASE END --->
    
-
-  // <--- GET REQUEST LOGIN START --->
-
-
-  const loginStatus = () => {
-    fetch('http://localhost:3001/logged_in', { withCredentials: true })
-      // credentials: true
-      .then(res => {
-        if(res.data.logged_in){
-          handleLoggedIn(res)
-        } else {
-          handleLoggedOut()
-        }
-      })
-      .catch(err => console.log('api errors:', err))
-  }
-  useEffect(loginStatus, [])
-
-  const handleLoggedIn = (data) => {
-    setIsLoggedIn(true);
-    setUser(data.user);
-  }
-
-  const handleLoggedOut = () => {
-    setIsLoggedIn(false);
-    setUser({})
-  }
-
-
-  // <--- GET REQUEST LOGIN END --->
-
 
   return (
     <>
