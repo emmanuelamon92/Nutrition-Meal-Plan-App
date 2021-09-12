@@ -1,18 +1,23 @@
-import React, {useState} from "react";
-import { Link, useContext } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router"
 
-function LogIn() {
+function LogIn( handleLogin, loggedInStatus ) {
 
     // const [error, setError] = useState()
     // const [userInfo, setUserInfo] = useState()
     const { register, handleSubmit, formState: {errors} } = useForm();
 
-    const history = useHistory()
+    const [error, setError] = useState('')
 
+    const history = useHistory()
+    
+    useEffect(loggedInStatus ? redirect() : null, [])
+
+    
     const onSubmit = (infoRegister) => {
-        console.log(errors)
+        // e.preventDefault()
         //<--- POST REQUEST START --->
         let config = {
             method: 'POST',
@@ -20,21 +25,39 @@ function LogIn() {
                 'Content-Type': 'application/json',
                 'Accepts': 'application/json'
             },
-            body: JSON.stringify(infoRegister)
+            body: JSON.stringify(infoRegister),
+            withCredentials: true
         }
         fetch("/login", config)
             .then(res => res.json())
             .then(data => {
-                // setUserInfo(data)
-                console.log(data, 'Log in Successful')
+                if (data.logged_in) {
+                    handleLogin(data)
+                    redirect()
+                } else {
+                    setError(data.errors)
+                }
             })
             .catch(err => {
-                // setError(err)
-                console.log(err, "Not able to log in!")
+                console.log('api error:', err)
             })
-        // history.push('/')
     }
 
+    const redirect = () => {
+        history.push('/')
+    }
+
+    const handleErrors = () => {
+        return (
+          <div>
+            <ul>
+            {this.state.errors.map(error => {
+            return <li key={error}>{error}</li>
+              })}
+            </ul>
+          </div>
+        )
+      }
 
     //<--- POST REQUEST END --->
 
@@ -58,6 +81,9 @@ function LogIn() {
                     <Link to="/signup">Create New Account</Link>
                 </div>
             </form>
+            <div>
+                {errors ? handleErrors : null}
+            </div>
         </ >
     );
 }

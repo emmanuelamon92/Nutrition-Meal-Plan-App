@@ -1,11 +1,12 @@
-import React from "react";
-import { Link, Route, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-export default function SignUp() {
+export default function SignUp( handleLogin ) {
     
     const { register, handleSubmit, formState: {errors} } = useForm();
 
+    const [error, setError] = useState('')
     const history = useHistory()
 
     // const onSubmit = (infoRegister, e) => {
@@ -48,8 +49,8 @@ export default function SignUp() {
     //         //<--- POST USER REQUEST END --->
     // }
 
-    const onSubmit = (infoRegister, e) => {
-        e.preventDefault()
+    const onSubmit = (infoRegister) => {
+        // e.preventDefault()
 
         //<--- POST USER REQUEST START --->
         let config = {
@@ -63,12 +64,34 @@ export default function SignUp() {
         }
         fetch("/users", config)
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => {
+                if (data.status === 'created') {
+                    handleLogin(data)
+                    redirect()
+                } else {
+                    setError(data.errors)
+                }
+            })
             .catch(err => console.log(err))
-        history.push('/')
             //<--- POST USER REQUEST END --->
     }
 
+    const redirect = () => {
+        history.push('/')
+    }
+
+    const handleErrors = () => {
+        return (
+          <div>
+            <ul>
+            {this.state.errors.map(error => {
+            return <li key={error}>{error}</li>
+              })}
+            </ul>
+          </div>
+        )
+    }
+    
     return (
         <>
             <h1>Sign Up</h1>
@@ -94,6 +117,9 @@ export default function SignUp() {
                 <br /><br />
                 <Link to="/login">SignIn</Link>
             </form>
+            <div>
+                {errors ? handleErrors : null}
+            </div>
         </ >
     );
 }

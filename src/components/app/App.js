@@ -199,26 +199,27 @@ const handleFetchedUserInfo = () => {
   // <--- GET REQUEST LOGIN START --->
 
 
-  const loginStatus = () => {
+  const loggedInStatus = () => {
     fetch('http://localhost:3001/logged_in', { withCredentials: true })
       // credentials: true
-      .then(res => {
-        if(res.data.logged_in){
-          handleLoggedIn(res)
+      .then(res => res.json())
+      .then(data => {
+        if(data.logged_in){
+          handleLogin(data)
         } else {
-          handleLoggedOut()
+          handleLogout()
         }
       })
       .catch(err => console.log('api errors:', err))
   }
-  useEffect(loginStatus, [])
+  useEffect(loggedInStatus, [])
 
-  const handleLoggedIn = (data) => {
+  const handleLogin = (data) => {
     setIsLoggedIn(true);
     setUser(data.user);
   }
 
-  const handleLoggedOut = () => {
+  const handleLogout = () => {
     setIsLoggedIn(false);
     setUser({})
   }
@@ -230,8 +231,8 @@ const handleFetchedUserInfo = () => {
   return (
     <>
       <Switch>
-        <Route path='/signup' render={() => <SignUp></SignUp>}></Route>
-        <Route path='/login' render={() => <LogIn></LogIn>}></Route>
+        <Route path='/signup' render={() => <SignUp handleLogin={handleLogin} loggedInStatus={ loggedInStatus } ></SignUp>}></Route>
+        <Route path='/login' render={() => <LogIn handleLogin={ handleLogin } loggedInStatus={ loggedInStatus } ></LogIn>}></Route>
         <div>
           <nav className='navbar'>
             <div className='nav-container'>
