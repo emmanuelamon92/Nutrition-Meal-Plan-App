@@ -9,7 +9,7 @@ export default function Home(props) {
     return (
         <>
             <div className='page-body'>
-                <h1 className='home'>Welcome! {currentUser.username} I'm Your Recipe Assistant! { time }</h1>
+                <h1 className='home'>Welcome {currentUser.username}! I'm Your Recipe Assistant! { time }</h1>
                 <form onSubmit={onSubmitForm} className='form' id='userNutritionInfoForm' autoComplete='off'>
                     {/*Meals for Day or Week*/}
                     <label>Select your recipe plan info for the day!</label><br/>
