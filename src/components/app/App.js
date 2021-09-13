@@ -88,7 +88,7 @@ export default function App() {
                     },
                     body: JSON.stringify(mealDataPost)
                   }                
-                fetch("http://localhost:3001/recipes", config)
+                fetch("/recipes", config)
 
 
   // <--- POST REQUEST FETCHED EXTERNAL API MEAL DATA TO RECIPE ENDPOINT IN DB.JSON FILE END --->
@@ -123,7 +123,7 @@ const handleFetchedUserInfo = () => {
     },
   body: JSON.stringify(userInputFromState)
   }
-  fetch("http://localhost:3001/userInfo", config)
+  fetch("/users", config)
 }
 
 
@@ -134,14 +134,14 @@ const handleFetchedUserInfo = () => {
 
   
   const handleFetchedMeals = () => {
-      fetch('http://localhost:3001/recipes')
+      fetch('/recipes')
         .then(res => res.json())
         .then(data => {
           setMeals([...data])
         })
         .catch(err => console.error(err))
     
-        fetch('http://localhost:3001/userInfo')
+        fetch('/users')
         .then(res => res.json())
         .then(data => {
           setUserInfo([...data])
@@ -184,9 +184,9 @@ const handleFetchedUserInfo = () => {
             "Accepts": "application/json"
         },
     }
-    mealIds.forEach(mealId => fetch('http://localhost:3001/users/' + mealId, config))
-    mealIds.forEach(mealId => fetch('http://localhost:3001/meals/' + mealId, config))
-    //userIds.forEach(userId => fetch('http://localhost:3001/userInfo/' + userId, config))
+    mealIds.forEach(mealId => fetch('/users/' + mealId, config))
+    mealIds.forEach(mealId => fetch('/meals/' + mealId, config))
+    //userIds.forEach(userId => fetch('/users/' + userId, config))
 
     // CALLING "GET REQUEST RECIPES AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER DB.JSON DELETE REQUEST
     handleFetchedUserInfo()
@@ -221,8 +221,10 @@ const handleFetchedUserInfo = () => {
   }
 
   const handleLogout = () => {
+    history.push('/login')
     setIsLoggedIn(false);
     setUser({})
+    
   }
 
 
