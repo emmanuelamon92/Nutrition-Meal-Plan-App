@@ -5,6 +5,7 @@ import Home from '../Home';
 import MyRecipes from '../MyRecipes';
 import MyProfile from '../MyProfile';
 import LogIn from '../auth/LogIn';
+import LogOut from '../auth/LogOut';
 import SignUp from '../auth/SignUp';
 
 require('dotenv').config();
@@ -44,8 +45,8 @@ export default function App() {
 
   const api_key = process.env.API_KEY
 
-  const [isLoggedIn, setIsLoggedIn] = useState({})
-  const [user, setUser] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [user, setUser] = useState({})
    
 
 //<--- STATE DECLARATIONS END --->
@@ -200,7 +201,7 @@ const handleFetchedUserInfo = () => {
 
 
   const loggedInStatus = () => {
-    fetch('http://localhost:3001/logged_in', { withCredentials: true })
+    fetch('/logged_in', { withCredentials: true })
       // credentials: true
       .then(res => res.json())
       .then(data => {
@@ -231,19 +232,20 @@ const handleFetchedUserInfo = () => {
   return (
     <>
       <Switch>
-        <Route path='/signup' render={() => <SignUp handleLogin={handleLogin} loggedInStatus={ loggedInStatus } ></SignUp>}></Route>
-        <Route path='/login' render={() => <LogIn handleLogin={ handleLogin } loggedInStatus={ loggedInStatus } ></LogIn>}></Route>
+        <Route exact path='/signup' render={() => <SignUp handleLogin={handleLogin} loggedInStatus={ loggedInStatus } ></SignUp>}></Route>
+        <Route exact path='/login' render={() => <LogIn handleLogin={ handleLogin } loggedInStatus={ loggedInStatus } ></LogIn>}></Route>
+        <Route exact path='/logout' render={() => <LogOut></LogOut>}></Route>
         <div>
           <nav className='navbar'>
             <div className='nav-container'>
               <Link to='/' className='left-ali' >NUTRITIONAL RECIPE APP</Link>
-              <Link to='/login' className='nav-item'>Sign Out</Link>
+              <Link to='/logout' className='nav-item'>Sign Out</Link>
               <Link to='/myprofile'  className='nav-item'>My Profile</Link>
               <Link to='/myrecipes' onClick={ handleFetchedMeals } className='nav-item'>My Recipes</Link>
               <Link to='/' className='nav-item'>Home</Link>
             </div>
           </nav>
-          <Route exact path='/' render={() => <Home onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
+          <Route exact path='/' render={() => <Home currentUser={ user } onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
           <Route exact path='/myrecipes' render={() => <MyRecipes userInfo={ userInfo } meals={meals} onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
           <Route exact path='/myprofile' render={() => <MyProfile userInfo={ userInfo } calories={ calories } allergies={ allergies } diet={ diet }/>}></Route>
         </div>

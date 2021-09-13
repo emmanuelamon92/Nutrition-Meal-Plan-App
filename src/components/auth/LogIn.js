@@ -3,18 +3,19 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router"
 
-function LogIn( handleLogin, loggedInStatus ) {
+function LogIn({ handleLogin, loggedInStatus }) {
 
-    // const [error, setError] = useState()
-    // const [userInfo, setUserInfo] = useState()
-    const { register, handleSubmit, formState: {errors} } = useForm();
+     const { register, handleSubmit, formState: {errors} } = useForm();
 
     const [error, setError] = useState('')
 
     const history = useHistory()
-    
-    useEffect(loggedInStatus ? redirect() : null, [])
 
+    const redirect = () => {
+        history.push('/')
+    }
+
+    // useEffect(loggedInStatus ? redirect() : null, [])
     
     const onSubmit = (infoRegister) => {
         // e.preventDefault()
@@ -31,6 +32,7 @@ function LogIn( handleLogin, loggedInStatus ) {
         fetch("/login", config)
             .then(res => res.json())
             .then(data => {
+                console.log(data, data.logged_in)
                 if (data.logged_in) {
                     handleLogin(data)
                     redirect()
@@ -43,16 +45,12 @@ function LogIn( handleLogin, loggedInStatus ) {
             })
     }
 
-    const redirect = () => {
-        history.push('/')
-    }
-
     const handleErrors = () => {
         return (
           <div>
             <ul>
-            {this.state.errors.map(error => {
-            return <li key={error}>{error}</li>
+            {error.map(err => {
+            return <li key={err}>{err}</li>
               })}
             </ul>
           </div>
@@ -82,7 +80,7 @@ function LogIn( handleLogin, loggedInStatus ) {
                 </div>
             </form>
             <div>
-                {errors ? handleErrors : null}
+                {error ? handleErrors() : null}
             </div>
         </ >
     );

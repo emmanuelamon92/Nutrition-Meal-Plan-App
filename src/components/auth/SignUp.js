@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-export default function SignUp( handleLogin ) {
+export default function SignUp({ handleLogin }) {
     
     const { register, handleSubmit, formState: {errors} } = useForm();
 
     const [error, setError] = useState('')
+    const [currentUser, setCurrentUser] = useState('')
     const history = useHistory()
 
     // const onSubmit = (infoRegister, e) => {
@@ -51,7 +52,7 @@ export default function SignUp( handleLogin ) {
 
     const onSubmit = (infoRegister) => {
         // e.preventDefault()
-
+    
         //<--- POST USER REQUEST START --->
         let config = {
             method: 'POST',
@@ -65,6 +66,7 @@ export default function SignUp( handleLogin ) {
         fetch("/users", config)
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 if (data.status === 'created') {
                     handleLogin(data)
                     redirect()
@@ -84,8 +86,8 @@ export default function SignUp( handleLogin ) {
         return (
           <div>
             <ul>
-            {this.state.errors.map(error => {
-            return <li key={error}>{error}</li>
+            {error.map(err => {
+            return <li key={err}>{err}</li>
               })}
             </ul>
           </div>
@@ -108,7 +110,7 @@ export default function SignUp( handleLogin ) {
                     </div>
                     <br />
                     <div className="mb-3" controlId="form_basic_password_confirmation">
-                        <input type="password_confirmation" placeholder="Confirm Password" {...register("password_confirmation", {required: true})}/>
+                        <input type="password" placeholder="Confirm Password" {...register("password_confirmation", {required: true})}/>
                         {/* {errors.password_confirmation && errors.password_confirmation.type === "required" && <span>This is required</span>} */}
                     </div>
                 </div>
