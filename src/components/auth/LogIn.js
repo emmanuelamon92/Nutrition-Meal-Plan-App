@@ -50,7 +50,7 @@ function LogIn({ handleLogin, loggedInStatus }) {
           <div>
             <ul>
             {error.map(err => {
-            return <li key={err}>{err}</li>
+            return <p className="errorList" key={err} color='#ff7f50'>{err}</p>
               })}
             </ul>
           </div>

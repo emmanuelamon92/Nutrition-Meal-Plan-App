@@ -87,7 +87,7 @@ export default function SignUp({ handleLogin }) {
           <div>
             <ul>
             {error.map(err => {
-            return <li key={err}>{err}</li>
+            return <p key={err} color='#ff7f50'>{err}</p>
               })}
             </ul>
           </div>
@@ -119,9 +119,7 @@ export default function SignUp({ handleLogin }) {
                 <br /><br />
                 <Link to="/login">SignIn</Link>
             </form>
-            <div>
-                {errors ? handleErrors : null}
-            </div>
+ 
         </ >
     );
 }
