@@ -57,7 +57,7 @@ export default function MyRecipes(props) {
     
     return (
         <div className='page-body'>
-            <h1>MY RECIPES</h1>
+            <h1>MY MEALS</h1>
             <div className="meal">
                 {renderMeals()}
             </div>

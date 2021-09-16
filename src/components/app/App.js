@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Switch, Route, Link, useHistory } from 'react-router-dom';
 import Home from '../Home';
-import MyRecipes from '../MyRecipes';
+import MyMeals from '../MyMeals';
 import MyProfile from '../MyProfile';
 import LogIn from '../auth/LogIn';
 import LogOut from '../auth/LogOut';
@@ -41,7 +41,6 @@ export default function App() {
   }
 
   const [meals, setMeals] = useState([])
-  const [userInfo, setUserInfo] = useState([])
 
   const api_key = process.env.API_KEY
 
@@ -78,7 +77,8 @@ export default function App() {
                       title: title,
                       readyInMinutes: readyInMinutes,
                       servings: servings,
-                      sourceUrl: sourceUrl
+                      sourceUrl: sourceUrl,
+                      favorite: false
                   }
                   let config = {
                       method: 'POST',
@@ -88,13 +88,13 @@ export default function App() {
                     },
                     body: JSON.stringify(mealDataPost)
                   }                
-                fetch("/recipes", config)
+                fetch("/meals", config)
 
 
   // <--- POST REQUEST FETCHED EXTERNAL API MEAL DATA TO RECIPE ENDPOINT IN DB.JSON FILE END --->
                 
                 
-                // CALLING "GET REQUEST RECIPES AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER NEW EXTERNAL API GET REQUEST
+                // CALLING "GET REQUEST meals AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER NEW EXTERNAL API GET REQUEST
                 handleFetchedUserInfo()
                 handleFetchedMeals()
               })
@@ -123,18 +123,18 @@ const handleFetchedUserInfo = () => {
     },
   body: JSON.stringify(userInputFromState)
   }
-  fetch("/users", config)
+  fetch("/profile", config)
 }
 
 
 //<--- POST REQUEST INPUTED USERINFO DATA TO USERINFO ENDPOINT IN JSON FILE END --->
 
 
-//<--- GET REQUEST RECIPES AND USERINFO FROM DB.JSON FILE START --->
+//<--- GET REQUEST meals AND USERINFO FROM DB.JSON FILE START --->
 
   
   const handleFetchedMeals = () => {
-      fetch('/recipes')
+      fetch('/meals')
         .then(res => res.json())
         .then(data => {
           setMeals([...data])
@@ -144,13 +144,13 @@ const handleFetchedUserInfo = () => {
         fetch('/users')
         .then(res => res.json())
         .then(data => {
-          setUserInfo([...data])
+          setUser([...data])
         })
         .catch(err => console.error(err))
   }
 
 
-//<--- GET REQUEST RECIPES AND USERINFO FROM JSON FILE END --->
+//<--- GET REQUEST meals AND USERINFO FROM JSON FILE END --->
 
   
 //<--- SUBMIT HANDLER START --->
@@ -159,11 +159,11 @@ const handleFetchedUserInfo = () => {
   const history = useHistory();
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    const url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/mealplans/generate?targetCalories=" + calories + "&timeFrame=" + time + "&diet=" + diet + "&exclude=" + allergies
+    const url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/meals/mealplans/generate?targetCalories=" + calories + "&timeFrame=" + time + "&diet=" + diet + "&exclude=" + allergies
     fetchMeals(url)
     
     //REDIRECT AFTER SUBMIT BUTTON
-    return history.push('./MyRecipes/');
+    return history.push('./Mymeals/');
   }
 
 
@@ -188,7 +188,7 @@ const handleFetchedUserInfo = () => {
     mealIds.forEach(mealId => fetch('/meals/' + mealId, config))
     //userIds.forEach(userId => fetch('/users/' + userId, config))
 
-    // CALLING "GET REQUEST RECIPES AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER DB.JSON DELETE REQUEST
+    // CALLING "GET REQUEST meals AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER DB.JSON DELETE REQUEST
     handleFetchedUserInfo()
     handleFetchedMeals()
   }
@@ -240,16 +240,16 @@ const handleFetchedUserInfo = () => {
         <div>
           <nav className='navbar'>
             <div className='nav-container'>
-              <Link to='/' className='left-ali' >NUTRITIONAL RECIPE APP</Link>
+              <Link to='/' className='left-ali' >NUTRITIONAL MEAL APP</Link>
               <Link to='/logout' className='nav-item'>Sign Out</Link>
               <Link to='/myprofile'  className='nav-item'>My Profile</Link>
-              <Link to='/myrecipes' onClick={ handleFetchedMeals } className='nav-item'>My Recipes</Link>
+              <Link to='/mymeals' onClick={ handleFetchedMeals } className='nav-item'>My Meals</Link>
               <Link to='/' className='nav-item'>Home</Link>
             </div>
           </nav>
           <Route exact path='/' render={() => <Home currentUser={ user } onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
-          <Route exact path='/myrecipes' render={() => <MyRecipes userInfo={ userInfo } meals={meals} onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
-          <Route exact path='/myprofile' render={() => <MyProfile userInfo={ userInfo } calories={ calories } allergies={ allergies } diet={ diet }/>}></Route>
+          <Route exact path='/mymeals' render={() => <MyMeals currentUser={ user } meals={ meals } onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
+          <Route exact path='/myprofile' render={() => <MyProfile currentUser={ user } calories={ calories } allergies={ allergies } diet={ diet }/>}></Route>
         </div>
       </Switch>
       <br/>

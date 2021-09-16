@@ -9,10 +9,10 @@ export default function Home(props) {
     return (
         <>
             <div className='page-body'>
-                <h1 className='home'>Welcome {currentUser.username}! I'm Your Recipe Assistant! { time }</h1>
+                <h1 className='home'>Welcome {currentUser.username}! I'm Your Meal Assistant! { time }</h1>
                 <form onSubmit={onSubmitForm} className='form' id='userNutritionInfoForm' autoComplete='off'>
                     {/*Meals for Day or Week*/}
-                    <label>Select your recipe plan info for the day!</label><br/>
+                    <label>Select your meal plan for the day!</label><br/>
                     {/* <input type='radio' id='time-frame-input-day' value='day' onChange={ onTimeChange } />
                     <label htmlFor='day'>Day</label> */}
                     {/* <input type='radio' id='time-frame-input-week' value='week' onChange={ onTimeChange } />
