@@ -68,7 +68,7 @@ export default function App() {
         .then(data => {
 
 
-  //<--- POST REQUEST FETCHED EXTERNAL API MEAL DATA TO RECIPE ENDPOINT IN DB.JSON FILE START --->
+  //<--- POST REQUEST FETCHED EXTERNAL API MEAL DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE START --->
           
           
               data.meals.forEach(meal => {
@@ -91,7 +91,7 @@ export default function App() {
                 fetch("/meals", config)
 
 
-  // <--- POST REQUEST FETCHED EXTERNAL API MEAL DATA TO RECIPE ENDPOINT IN DB.JSON FILE END --->
+  // <--- POST REQUEST FETCHED EXTERNAL API MEAL DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE END --->
                 
                 
                 // CALLING "GET REQUEST meals AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER NEW EXTERNAL API GET REQUEST
@@ -106,7 +106,7 @@ export default function App() {
 //<--- INITIAL GET REQUEST FROM EXTERNAL API END --->
 
 
-//<--- POST REQUEST INPUTED USERINFO DATA TO USERINFO ENDPOINT IN JSON FILE START --->
+//<--- POST REQUEST INPUTED USER PROFILE DATA TO USER PROFILE ENDPOINT IN POSTGRES DATABASE START --->
 
   
 const handleFetchedUserInfo = () => {
@@ -127,21 +127,21 @@ const handleFetchedUserInfo = () => {
 }
 
 
-//<--- POST REQUEST INPUTED USERINFO DATA TO USERINFO ENDPOINT IN JSON FILE END --->
+//<--- POST REQUEST INPUTED USER PROFILE DATA TO USER PROFILE ENDPOINT IN POSTGRES DATABASE END --->
 
 
-//<--- GET REQUEST meals AND USERINFO FROM DB.JSON FILE START --->
+//<--- GET REQUEST MEALS AND USERINFO FROM POSTGRES DATABASE START --->
 
   
   const handleFetchedMeals = () => {
-      fetch('/meals')
+      fetch(`/user/${user.id}/meals`)
         .then(res => res.json())
         .then(data => {
           setMeals([...data])
         })
         .catch(err => console.error(err))
     
-        fetch('/users')
+        fetch(`/user/${user.id}`)
         .then(res => res.json())
         .then(data => {
           setUser([...data])
@@ -150,7 +150,7 @@ const handleFetchedUserInfo = () => {
   }
 
 
-//<--- GET REQUEST meals AND USERINFO FROM JSON FILE END --->
+//<--- GET REQUEST meals AND USERINFO FROM POSTGRES DATABASE END --->
 
   
 //<--- SUBMIT HANDLER START --->
@@ -163,7 +163,7 @@ const handleFetchedUserInfo = () => {
     fetchMeals(url)
     
     //REDIRECT AFTER SUBMIT BUTTON
-    return history.push('./Mymeals/');
+    return history.push('./mymeals/');
   }
 
 
