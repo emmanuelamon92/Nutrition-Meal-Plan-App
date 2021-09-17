@@ -5,7 +5,7 @@ import './app/App.css';
 export default function Home(props) {
 
     const { time, currentUser, calories, onCaloriesChange, diet, onDietChange, allergies, onAllergiesChange, onSubmitForm } = props
-    console.log(currentUser)
+    // console.log(currentUser)
     return (
         <>
             <div className='page-body'>

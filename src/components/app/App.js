@@ -59,9 +59,10 @@ export default function App() {
       const configObj = {
           "method": "GET",
           "headers": {
-              // "x-rapidapi-key": process.env.API_KEY,
-              "x-rapidapi-key": api_key,
-              "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
+            "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+            "x-rapidapi-key": "3ac613e275mshe29fb560ec9f8a9p1516fdjsn4288cb3518a5"
+            // "x-rapidapi-key": process.env.API_KEY,
+            // "x-rapidapi-key": api_key,
           }
       }
       fetch(url, configObj)
@@ -80,8 +81,10 @@ export default function App() {
                       readyInMinutes: readyInMinutes,
                       servings: servings,
                       sourceUrl: sourceUrl,
-                      favorite: false
+                      favorite: false,
+                      user_id: user.id
                   }
+                  console.log(mealDataPost)
                   let config = {
                       method: 'POST',
                       headers: {
@@ -158,7 +161,7 @@ const handleFetchedUserInfo = () => {
     fetch(`/user/${user.id}`)
       .then(res => res.json())
       .then(data => {
-        setUser([...data])
+        setUser(...data)
       })
       .catch(err => console.error(err))
     
@@ -172,7 +175,7 @@ const handleFetchedUserInfo = () => {
     fetch(`/user/${user.id}/profile`)
       .then(res => res.json())
       .then(data => {
-        setProfile([...data])
+        setProfile(...data)
       })
       .catch(err => console.error(err))
   }
@@ -181,7 +184,7 @@ const handleFetchedUserInfo = () => {
   // <--- GET REQUEST PROFILE FOR SPECIFIC USER END --->
 
 
-//<--- GET REQUEST meals AND USERINFO FROM POSTGRES DATABASE END --->
+//<--- GET REQUEST MEALS AND USERINFO FROM POSTGRES DATABASE END --->
 
   
 //<--- SUBMIT HANDLER START --->
@@ -190,7 +193,7 @@ const handleFetchedUserInfo = () => {
   const history = useHistory();
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    const url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/meals/mealplans/generate?targetCalories=" + calories + "&timeFrame=" + time + "&diet=" + diet + "&exclude=" + allergies
+    const url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/mealplans/generate?targetCalories=" + calories + "&timeFrame=" + time + "&diet=" + diet + "&exclude=" + allergies
     fetchMeals(url)
     
     //REDIRECT AFTER SUBMIT BUTTON
