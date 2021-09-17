@@ -46,6 +46,7 @@ export default function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState({})
+  const [profile, setProfile] = useState({})
    
 
 //<--- STATE DECLARATIONS END --->
@@ -70,8 +71,9 @@ export default function App() {
 
   //<--- POST REQUEST FETCHED EXTERNAL API MEAL DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE START --->
           
-          
+              
               data.meals.forEach(meal => {
+                  console.log(data)
                   const {title, readyInMinutes, servings, sourceUrl } = meal
                   const mealDataPost = {
                       title: title,
@@ -96,7 +98,7 @@ export default function App() {
                 
                 // CALLING "GET REQUEST meals AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER NEW EXTERNAL API GET REQUEST
                 handleFetchedUserInfo()
-                handleFetchedMeals()
+                handleFetchedUsersMealsProfiles()
               })
         })
         .catch(err => console.error(err))
@@ -133,21 +135,50 @@ const handleFetchedUserInfo = () => {
 //<--- GET REQUEST MEALS AND USERINFO FROM POSTGRES DATABASE START --->
 
   
-  const handleFetchedMeals = () => {
-      fetch(`/user/${user.id}/meals`)
-        .then(res => res.json())
-        .then(data => {
-          setMeals([...data])
-        })
-        .catch(err => console.error(err))
+  const handleFetchedUsersMealsProfiles = () => {
+
+
+    // <--- GET REQUEST MEALS FOR SPECIFIC USER START --->
     
-        fetch(`/user/${user.id}`)
-        .then(res => res.json())
-        .then(data => {
-          setUser([...data])
-        })
-        .catch(err => console.error(err))
+
+    fetch(`/user/${user.id}/meals`)
+      .then(res => res.json())
+      .then(data => {
+        setMeals([...data])
+      })
+      .catch(err => console.error(err))
+    
+    
+    // <--- GET REQUEST MEALS FOR SPECIFIC USER END --->
+    
+    
+    // <--- GET REQUEST SPECIFIC USER DATA START --->
+
+
+    fetch(`/user/${user.id}`)
+      .then(res => res.json())
+      .then(data => {
+        setUser([...data])
+      })
+      .catch(err => console.error(err))
+    
+    
+    // <--- GET REQUEST SPECIFIC USER DATA END --->
+    
+    
+    // <--- GET REQUEST PROFILE FOR SPECIFIC USER START --->
+
+
+    fetch(`/user/${user.id}/profile`)
+      .then(res => res.json())
+      .then(data => {
+        setProfile([...data])
+      })
+      .catch(err => console.error(err))
   }
+
+
+  // <--- GET REQUEST PROFILE FOR SPECIFIC USER END --->
 
 
 //<--- GET REQUEST meals AND USERINFO FROM POSTGRES DATABASE END --->
@@ -190,7 +221,7 @@ const handleFetchedUserInfo = () => {
 
     // CALLING "GET REQUEST meals AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER DB.JSON DELETE REQUEST
     handleFetchedUserInfo()
-    handleFetchedMeals()
+    handleFetchedUsersMealsProfiles()
   }
 
 
@@ -234,7 +265,7 @@ const handleFetchedUserInfo = () => {
   return (
     <>
       <Switch>
-        <Route exact path='/signup' render={() => <SignUp handleLogin={handleLogin} loggedInStatus={ loggedInStatus } ></SignUp>}></Route>
+        <Route exact path='/signup' render={() => <SignUp handleLogin={ handleLogin } loggedInStatus={ loggedInStatus } ></SignUp>}></Route>
         <Route exact path='/login' render={() => <LogIn handleLogin={ handleLogin } loggedInStatus={ loggedInStatus } ></LogIn>}></Route>
         <Route exact path='/logout' render={() => <LogOut></LogOut>}></Route>
         <div>
@@ -243,13 +274,13 @@ const handleFetchedUserInfo = () => {
               <Link to='/' className='left-ali' >NUTRITIONAL MEAL APP</Link>
               <Link to='/logout' className='nav-item'>Sign Out</Link>
               <Link to='/myprofile'  className='nav-item'>My Profile</Link>
-              <Link to='/mymeals' onClick={ handleFetchedMeals } className='nav-item'>My Meals</Link>
+              <Link to='/mymeals' onClick={ handleFetchedUsersMealsProfiles } className='nav-item'>My Meals</Link>
               <Link to='/' className='nav-item'>Home</Link>
             </div>
           </nav>
           <Route exact path='/' render={() => <Home currentUser={ user } onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
           <Route exact path='/mymeals' render={() => <MyMeals currentUser={ user } meals={ meals } onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
-          <Route exact path='/myprofile' render={() => <MyProfile currentUser={ user } calories={ calories } allergies={ allergies } diet={ diet }/>}></Route>
+          <Route exact path='/myprofile' render={() => <MyProfile currentProfile={ profile } currentUser={ user } calories={ calories } allergies={ allergies } diet={ diet }/>}></Route>
         </div>
       </Switch>
       <br/>

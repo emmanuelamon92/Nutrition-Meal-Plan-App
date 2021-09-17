@@ -6,6 +6,8 @@ export default function MyRecipes(props) {
     
     const { meals, onDeleteAllMeals } = props
 
+    console.log(meals)
+
 
 //<--- CLEAR BUTTON RENDER TO SCREEN FUNCTION START --->
     

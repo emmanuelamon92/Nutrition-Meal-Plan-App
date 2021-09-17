@@ -4,7 +4,8 @@ import './app/App.css';
 
 export default function MyProfile(props) {
 
-    const { currentUser } = props
+    const { currentProfile, currentUser, calories, diet, allergies } = props
+    console.log(calories, diet, allergies)
 
 
 // <--- Add time user looked up info? --->
@@ -13,14 +14,18 @@ export default function MyProfile(props) {
 
 // <--- RENDER currentUser FUNCTION TO ROUTE START --->
     
-    
     const renderCurrentUser = () => {
-        return currentUser.map(input => {
-            if (input.id % 3 === 1){
-                return <h3>Calories: <span className='prop-color'>{input.calories}</span> | Diet: <span className='prop-color'>{input.diet}</span>  | Allergies: <span className='prop-color'>{input.allergies}</span></h3>
-            }
-        })
+            // if (currentUser.id % 3 === 1){
+                return <h3>Calories: <span className='prop-color'>{calories}</span> | Diet: <span className='prop-color'>{diet}</span>  | Allergies: <span className='prop-color'>{allergies}</span></h3>
+            // }
     }
+    // const renderCurrentUser = () => {
+    //     return currentUser.map(input => {
+    //         if (input.id % 3 === 1){
+    //             return <h3>Calories: <span className='prop-color'>{input.calories}</span> | Diet: <span className='prop-color'>{input.diet}</span>  | Allergies: <span className='prop-color'>{input.allergies}</span></h3>
+    //         }
+    //     })
+    // }
 
 
 // <--- ENDER currentUser FUNCTION TO ROUTE END --->
@@ -31,6 +36,7 @@ export default function MyProfile(props) {
             
             <h1 className='my-profile'>MY PROFILE</h1>
             <div className='inner-body'>
+                <h2>{ currentProfile.name }</h2>
                 <h2>User Nutrition Information:</h2>
                 <h3>Data You Submitted:</h3>
                 {renderCurrentUser()}
