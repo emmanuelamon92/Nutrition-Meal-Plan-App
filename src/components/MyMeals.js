@@ -2,11 +2,11 @@ import React from 'react';
 import './app/App.css';
 
 
-export default function MyRecipes(props) {
+export default function MyMeals(props) {
     
     const { meals, onDeleteAllMeals } = props
 
-    console.log(meals)
+    // console.log(meals)
 
 
 //<--- CLEAR BUTTON RENDER TO SCREEN FUNCTION START --->
@@ -14,10 +14,10 @@ export default function MyRecipes(props) {
     
     const clearButton = () => {
         if (meals.length !== 0) {
-            console.log("not empty")
+            // console.log("not empty")
             return <button onClick={onDeleteAllMeals}>CLEAR</button>
         } else {
-            console.log("empty")
+            // console.log("empty")
             return <h2 className="empty">No Recipes Yet!</h2>
         }
     }
@@ -26,7 +26,7 @@ export default function MyRecipes(props) {
 //<--- CLEAR BUTTON RENDER TO SCREEN FUNCTION END --->
     
     
-// <--- RENDER MEAL DATA TO MYRECIPES ROUTE START --->
+// <--- RENDER MEAL DATA TO MYMEALS ROUTE START --->
 
 
     const renderMeals = () => {
@@ -38,7 +38,7 @@ export default function MyRecipes(props) {
                 count += 1
                 return (
                     <div>
-                        <p>Recipe Group: {count}</p>
+                        {/* <p>Recipe Group: {count}</p> */}
                         <h3><a target="_blank" rel="noreferrer" href={url}>{meal.title}</a ></h3 >
                     </div>
                 )
@@ -54,7 +54,7 @@ export default function MyRecipes(props) {
     }
 
 
-// <--- RENDER MEAL DATA TO MYRECIPES ROUTE END --->
+// <--- RENDER MEAL DATA TO MYMEALS ROUTE END --->
  
     
     return (

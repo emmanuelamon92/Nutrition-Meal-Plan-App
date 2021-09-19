@@ -17,7 +17,7 @@ const LogOut = () => {
         fetch('/logout', config)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                console.log('logout data', data)
                 setTimeout(() => {
                     history.push('/login');
                 }, 2000);

@@ -40,13 +40,14 @@ export default function App() {
     setAllergies(e.target.value);
   }
 
-  const [meals, setMeals] = useState([])
-
   const api_key = process.env.API_KEY
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  
   const [user, setUser] = useState({})
   const [profile, setProfile] = useState({})
+  const [meals, setMeals] = useState([])
+  console.log({user: user, profile: profile, meals: meals})
    
 
 //<--- STATE DECLARATIONS END --->
@@ -101,7 +102,7 @@ export default function App() {
                 
                 // CALLING "GET REQUEST meals AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER NEW EXTERNAL API GET REQUEST
                 handleFetchedUserInfo()
-                handleFetchedUsersMealsProfiles()
+                // handleFetchedUsersMealsProfiles()
               })
         })
         .catch(err => console.error(err))
@@ -109,6 +110,42 @@ export default function App() {
 
 
 //<--- INITIAL GET REQUEST FROM EXTERNAL API END --->
+
+  
+// <--- GET REQUEST LOGIN START --->
+
+
+  const loggedInStatus = () => {
+    fetch('/logged_in', { withCredentials: true })
+      // credentials: true
+      .then(res => res.json())
+      .then(data => {
+        if(data.logged_in){
+          handleLogin(data)
+        } else {
+          handleLogout()
+        }
+      })
+      .catch(err => console.log('api errors:', err))
+  }
+  useEffect(loggedInStatus, [])
+
+  const handleLogin = (data) => {
+    setIsLoggedIn(true);
+    setUser(data.user);
+    setProfile(data.user_data.profile)
+    setMeals(data.user_data.meals)
+  }
+
+  const handleLogout = () => {
+    history.push('/login')
+    setIsLoggedIn(false);
+    setUser({})
+    
+  }
+
+
+// <--- GET REQUEST LOGIN END --->
 
 
 //<--- POST REQUEST INPUTED USER PROFILE DATA TO USER PROFILE ENDPOINT IN POSTGRES DATABASE START --->
@@ -138,47 +175,50 @@ const handleFetchedUserInfo = () => {
 //<--- GET REQUEST MEALS AND USERINFO FROM POSTGRES DATABASE START --->
 
   
-  const handleFetchedUsersMealsProfiles = () => {
+  // const handleFetchedUsersMealsProfiles = () => {
 
 
-    // <--- GET REQUEST MEALS FOR SPECIFIC USER START --->
+  //   // <--- GET REQUEST MEALS FOR SPECIFIC USER START --->
     
 
-    fetch(`/user/${user.id}/meals`)
-      .then(res => res.json())
-      .then(data => {
-        setMeals([...data])
-      })
-      .catch(err => console.error(err))
+  //   fetch(`/user/${user.id}/meals`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       console.log('meal data', data)
+  //       setMeals([...data])
+  //     })
+  //     .catch(err => console.error(err))
     
     
-    // <--- GET REQUEST MEALS FOR SPECIFIC USER END --->
+  //   // <--- GET REQUEST MEALS FOR SPECIFIC USER END --->
     
     
-    // <--- GET REQUEST SPECIFIC USER DATA START --->
+  //   // <--- GET REQUEST SPECIFIC USER DATA START --->
 
 
-    fetch(`/user/${user.id}`)
-      .then(res => res.json())
-      .then(data => {
-        setUser(...data)
-      })
-      .catch(err => console.error(err))
+  //   fetch(`/user/${user.id}`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       console.log('user data', data)
+  //       setUser({...data})
+  //     })
+  //     .catch(err => console.error(err))
     
     
-    // <--- GET REQUEST SPECIFIC USER DATA END --->
+  //   // <--- GET REQUEST SPECIFIC USER DATA END --->
     
     
-    // <--- GET REQUEST PROFILE FOR SPECIFIC USER START --->
+  //   // <--- GET REQUEST PROFILE FOR SPECIFIC USER START --->
 
 
-    fetch(`/user/${user.id}/profile`)
-      .then(res => res.json())
-      .then(data => {
-        setProfile(...data)
-      })
-      .catch(err => console.error(err))
-  }
+  //   fetch(`/user/${user.id}/profile`, {mode: 'cors'})
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       console.log('profile data', data)
+  //       setProfile({...data})
+  //     })
+  //     .catch(err => console.error(err))
+  // }
 
 
   // <--- GET REQUEST PROFILE FOR SPECIFIC USER END --->
@@ -224,46 +264,12 @@ const handleFetchedUserInfo = () => {
 
     // CALLING "GET REQUEST meals AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER DB.JSON DELETE REQUEST
     handleFetchedUserInfo()
-    handleFetchedUsersMealsProfiles()
+    // handleFetchedUsersMealsProfiles()
   }
 
 
   // <--- CLEAR DB.JSON FILE DATABASE END --->
    
-
-  // <--- GET REQUEST LOGIN START --->
-
-
-  const loggedInStatus = () => {
-    fetch('/logged_in', { withCredentials: true })
-      // credentials: true
-      .then(res => res.json())
-      .then(data => {
-        if(data.logged_in){
-          handleLogin(data)
-        } else {
-          handleLogout()
-        }
-      })
-      .catch(err => console.log('api errors:', err))
-  }
-  useEffect(loggedInStatus, [])
-
-  const handleLogin = (data) => {
-    setIsLoggedIn(true);
-    setUser(data.user);
-  }
-
-  const handleLogout = () => {
-    history.push('/login')
-    setIsLoggedIn(false);
-    setUser({})
-    
-  }
-
-
-  // <--- GET REQUEST LOGIN END --->
-
 
   return (
     <>
@@ -276,14 +282,14 @@ const handleFetchedUserInfo = () => {
             <div className='nav-container'>
               <Link to='/' className='left-ali' >NUTRITIONAL MEAL APP</Link>
               <Link to='/logout' className='nav-item'>Sign Out</Link>
-              <Link to='/myprofile'  className='nav-item'>My Profile</Link>
-              <Link to='/mymeals' onClick={ handleFetchedUsersMealsProfiles } className='nav-item'>My Meals</Link>
+              <Link to='/myprofile' className='nav-item'>My Profile</Link>
+              <Link to='/mymeals' className='nav-item'>My Meals</Link>
               <Link to='/' className='nav-item'>Home</Link>
             </div>
           </nav>
           <Route exact path='/' render={() => <Home currentUser={ user } onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
           <Route exact path='/mymeals' render={() => <MyMeals currentUser={ user } meals={ meals } onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
-          <Route exact path='/myprofile' render={() => <MyProfile currentProfile={ profile } currentUser={ user } calories={ calories } allergies={ allergies } diet={ diet }/>}></Route>
+          <Route exact path='/myprofile' render={() => <MyProfile currentUser={ user } profile={ profile }  calories={ calories } allergies={ allergies } diet={ diet }/>}></Route>
         </div>
       </Switch>
       <br/>
