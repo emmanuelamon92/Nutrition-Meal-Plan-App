@@ -4,6 +4,7 @@ import { Switch, Route, Link, useHistory } from 'react-router-dom';
 import Home from '../Home';
 import MyMeals from '../MyMeals';
 import MyProfile from '../MyProfile';
+import MyProfileEdit from '../MyProfileEdit';
 import LogIn from '../auth/LogIn';
 import LogOut from '../auth/LogOut';
 import SignUp from '../auth/SignUp';
@@ -47,7 +48,7 @@ export default function App() {
   const [user, setUser] = useState({})
   const [profile, setProfile] = useState({})
   const [meals, setMeals] = useState([])
-  console.log({user: user, profile: profile, meals: meals})
+  // console.log({user: user, profile: profile, meals: meals})
    
 
 //<--- STATE DECLARATIONS END --->
@@ -141,7 +142,6 @@ export default function App() {
     history.push('/login')
     setIsLoggedIn(false);
     setUser({})
-    
   }
 
 
@@ -289,7 +289,8 @@ const handleFetchedUserInfo = () => {
           </nav>
           <Route exact path='/' render={() => <Home currentUser={ user } onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
           <Route exact path='/mymeals' render={() => <MyMeals currentUser={ user } meals={ meals } onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
-          <Route exact path='/myprofile' render={() => <MyProfile currentUser={ user } profile={ profile }  calories={ calories } allergies={ allergies } diet={ diet }/>}></Route>
+          <Route exact path='/myprofile' render={() => <MyProfile profile={profile} />}></Route>
+          <Route exact path='/myprofile/edit' render={() => <MyProfileEdit profile={ profile }/>}></Route>
         </div>
       </Switch>
       <br/>

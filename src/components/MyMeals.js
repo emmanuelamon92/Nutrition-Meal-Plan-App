@@ -5,8 +5,7 @@ import './app/App.css';
 export default function MyMeals(props) {
     
     const { meals, onDeleteAllMeals } = props
-
-    // console.log(meals)
+    console.log('meals data', meals)
 
 
 //<--- CLEAR BUTTON RENDER TO SCREEN FUNCTION START --->
