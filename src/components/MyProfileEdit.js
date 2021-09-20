@@ -4,7 +4,7 @@ import { Link, useHistory, useRouteMatch, Switch, Route } from "react-router-dom
 import { useForm } from "react-hook-form";
 
 
-export default function MyProfileEdit({profile, user, onProfileEdit, loggedInStatus}) {
+export default function MyProfileEdit({profile, user, onProfileEdit}) {
 
     const [error, setError] = useState('')
 
@@ -16,11 +16,11 @@ export default function MyProfileEdit({profile, user, onProfileEdit, loggedInSta
 
     const { register, handleSubmit, setValue } = useForm();
     
-    // const history = useHistory()
+    const history = useHistory()
 
-    // const redirect = () => {
-    //     history.push('/')
-    // }
+    const redirect = () => {
+        history.push('/myprofile')
+    }
 
     // useEffect(loggedInStatus ? redirect() : null, [])
     
@@ -41,8 +41,9 @@ const onSubmit = (editedInfo) => {
         .then(res => res.json())
         .then(data => {
             console.log('my profile edited',data)
-            if (data.logged_in) {
+            if (data.profile_updated) {
                 onProfileEdit(data)
+                redirect()
             } else {
                 setError(data.errors)
             }
@@ -68,14 +69,6 @@ const onSubmit = (editedInfo) => {
         <div className='page-body'>
             <h1 className='my-profile'>EDIT YOUR PROFILE</h1>
             <div className='inner-body'>
-                <h3>Name: {profile.name}</h3>
-                <h3>Age: {profile.age}</h3>
-                <h3>Current Weight: {profile.current_weight}</h3>
-                <h3>Target Weight: { profile.target_weight }</h3>
-                <h3>Current Daily Calorie Target: { profile.calories }</h3>
-                <h3>Allergies: { profile.allergies }</h3>
-                <h3>Diet: {profile.diet}</h3>
-
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <div className="mb-3" controlId="form_basic_name">

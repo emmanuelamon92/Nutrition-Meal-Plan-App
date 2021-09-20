@@ -152,6 +152,7 @@ export default function App() {
 
   
   const handleProfileEdit = (data) => {
+    console.log(data.profile)
     setProfile(data.profile)
   }
 
@@ -288,6 +289,7 @@ export default function App() {
         <Route exact path='/signup' render={() => <SignUp handleLogin={ handleLogin } loggedInStatus={ loggedInStatus } ></SignUp>}></Route>
         <Route exact path='/login' render={() => <LogIn handleLogin={ handleLogin } loggedInStatus={ loggedInStatus } ></LogIn>}></Route>
         <Route exact path='/logout' render={() => <LogOut></LogOut>}></Route>
+        <Route exact path='/myprofile/edit' render={() => <MyProfileEdit onProfileEdit={ handleProfileEdit } profile={profile} user={user} />}></Route>
         <div>
           <nav className='navbar'>
             <div className='nav-container'>
@@ -301,7 +303,6 @@ export default function App() {
           <Route exact path='/' render={() => <Home currentUser={ user } onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
           <Route exact path='/mymeals' render={() => <MyMeals currentUser={ user } meals={ meals } onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
           <Route exact path='/myprofile' render={() => <MyProfile profile={profile} />}></Route>
-          <Route exact path='/myprofileedit' render={() => <MyProfileEdit profile={profile} user={user} onProfileEdit={ handleProfileEdit } loggedInStatus={ loggedInStatus } />}></Route>
         </div>
       </Switch>
       <br/>
