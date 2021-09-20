@@ -5,7 +5,7 @@ import { useHistory } from "react-router"
 
 function LogIn({ handleLogin, loggedInStatus }) {
 
-     const { register, handleSubmit, formState: {errors} } = useForm();
+    const { register, handleSubmit, formState: {errors} } = useForm();
 
     const [error, setError] = useState('')
 

@@ -58,55 +58,55 @@ export default function App() {
   
   
   const fetchMeals = (url) => {
-      const configObj = {
-          "method": "GET",
-          "headers": {
-            "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-            "x-rapidapi-key": "3ac613e275mshe29fb560ec9f8a9p1516fdjsn4288cb3518a5"
-            // "x-rapidapi-key": process.env.API_KEY,
-            // "x-rapidapi-key": api_key,
-          }
+    const configObj = {
+      "method": "GET",
+      "headers": {
+        "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        "x-rapidapi-key": "3ac613e275mshe29fb560ec9f8a9p1516fdjsn4288cb3518a5"
+        // "x-rapidapi-key": process.env.API_KEY,
+        // "x-rapidapi-key": api_key,
       }
-      fetch(url, configObj)
-        .then(response => response.json())
-        .then(data => {
+    }
+    fetch(url, configObj)
+      .then(response => response.json())
+      .then(data => {
 
 
-  //<--- POST REQUEST FETCHED EXTERNAL API MEAL DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE START --->
+        //<--- POST REQUEST FETCHED EXTERNAL API MEAL DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE START --->
           
               
-              data.meals.forEach(meal => {
-                  console.log(data)
-                  const {title, readyInMinutes, servings, sourceUrl } = meal
-                  const mealDataPost = {
-                      title: title,
-                      readyInMinutes: readyInMinutes,
-                      servings: servings,
-                      sourceUrl: sourceUrl,
-                      favorite: false,
-                      user_id: user.id
-                  }
-                  console.log(mealDataPost)
-                  let config = {
-                      method: 'POST',
-                      headers: {
-                          "Content-Type": "application/json",
-                          "Accepts": "application/json"
-                    },
-                    body: JSON.stringify(mealDataPost)
-                  }                
-                fetch("/meals", config)
+        data.meals.forEach(meal => {
+          console.log(data)
+          const { title, readyInMinutes, servings, sourceUrl } = meal
+          const mealDataPost = {
+            title: title,
+            readyInMinutes: readyInMinutes,
+            servings: servings,
+            sourceUrl: sourceUrl,
+            favorite: false,
+            user_id: user.id
+          }
+          console.log(mealDataPost)
+          let config = {
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json",
+              "Accepts": "application/json"
+            },
+            body: JSON.stringify(mealDataPost)
+          }
+          fetch("/meals", config)
 
 
-  // <--- POST REQUEST FETCHED EXTERNAL API MEAL DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE END --->
+          // <--- POST REQUEST FETCHED EXTERNAL API MEAL DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE END --->
                 
                 
-                // CALLING "GET REQUEST meals AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER NEW EXTERNAL API GET REQUEST
-                handleFetchedUserInfo()
-                // handleFetchedUsersMealsProfiles()
-              })
+          // CALLING "GET REQUEST meals AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER NEW EXTERNAL API GET REQUEST
+          handleFetchedUserInfo()
+          // handleFetchedUsersMealsProfiles()
         })
-        .catch(err => console.error(err))
+      })
+      .catch(err => console.error(err))
   }
 
 
@@ -121,7 +121,7 @@ export default function App() {
       // credentials: true
       .then(res => res.json())
       .then(data => {
-        if(data.logged_in){
+        if (data.logged_in) {
           handleLogin(data)
         } else {
           handleLogout()
@@ -147,32 +147,43 @@ export default function App() {
 
 // <--- GET REQUEST LOGIN END --->
 
-
-//<--- POST REQUEST INPUTED USER PROFILE DATA TO USER PROFILE ENDPOINT IN POSTGRES DATABASE START --->
+  
+// <--- PUT REQUEST START --->
 
   
-const handleFetchedUserInfo = () => {
-  const userInputFromState = {
-    calories: calories,
-    allergies: allergies,
-    diet: diet
+  const handleProfileEdit = (data) => {
+    setProfile(data.profile)
   }
-  let config = {
-    method: 'POST',
-    headers: {
+
+
+// <--- PUT REQUEST END --->
+
+
+// <--- POST REQUEST INPUTED USER PROFILE DATA TO USER PROFILE ENDPOINT IN POSTGRES DATABASE START --->
+
+  
+  const handleFetchedUserInfo = () => {
+    const userInputFromState = {
+      calories: calories,
+      allergies: allergies,
+      diet: diet
+    }
+    let config = {
+      method: 'POST',
+      headers: {
         "Content-Type": "application/json",
         "Accepts": "application/json"
-    },
-  body: JSON.stringify(userInputFromState)
+      },
+      body: JSON.stringify(userInputFromState)
+    }
+    fetch("/profile", config)
   }
-  fetch("/profile", config)
-}
 
 
-//<--- POST REQUEST INPUTED USER PROFILE DATA TO USER PROFILE ENDPOINT IN POSTGRES DATABASE END --->
+// <--- POST REQUEST INPUTED USER PROFILE DATA TO USER PROFILE ENDPOINT IN POSTGRES DATABASE END --->
 
 
-//<--- GET REQUEST MEALS AND USERINFO FROM POSTGRES DATABASE START --->
+// <--- GET REQUEST MEALS AND USERINFO FROM POSTGRES DATABASE START --->
 
   
   // const handleFetchedUsersMealsProfiles = () => {
@@ -221,13 +232,13 @@ const handleFetchedUserInfo = () => {
   // }
 
 
-  // <--- GET REQUEST PROFILE FOR SPECIFIC USER END --->
+  // // <--- GET REQUEST PROFILE FOR SPECIFIC USER END --->
 
 
-//<--- GET REQUEST MEALS AND USERINFO FROM POSTGRES DATABASE END --->
+// <--- GET REQUEST MEALS AND USERINFO FROM POSTGRES DATABASE END --->
 
   
-//<--- SUBMIT HANDLER START --->
+// <--- SUBMIT HANDLER START --->
 
   
   const history = useHistory();
@@ -241,7 +252,7 @@ const handleFetchedUserInfo = () => {
   }
 
 
-//<--- SUBMIT HANDLER END --->
+// <--- SUBMIT HANDLER END --->
 
   
 //<--- CLEAR DB.JSON FILE DATABASE START --->
@@ -252,11 +263,11 @@ const handleFetchedUserInfo = () => {
 
   const handleDeleteAllMeals = () => {
     let config = {
-        method: 'DELETE',
-        headers: {
-            "Content-Type": "application/json",
-            "Accepts": "application/json"
-        },
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+        "Accepts": "application/json"
+      },
     }
     mealIds.forEach(mealId => fetch('/users/' + mealId, config))
     mealIds.forEach(mealId => fetch('/meals/' + mealId, config))
@@ -268,8 +279,8 @@ const handleFetchedUserInfo = () => {
   }
 
 
-  // <--- CLEAR DB.JSON FILE DATABASE END --->
-   
+// <--- CLEAR DB.JSON FILE DATABASE END --->
+
 
   return (
     <>
@@ -290,7 +301,7 @@ const handleFetchedUserInfo = () => {
           <Route exact path='/' render={() => <Home currentUser={ user } onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
           <Route exact path='/mymeals' render={() => <MyMeals currentUser={ user } meals={ meals } onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
           <Route exact path='/myprofile' render={() => <MyProfile profile={profile} />}></Route>
-          <Route exact path='/myprofile/edit' render={() => <MyProfileEdit profile={ profile }/>}></Route>
+          <Route exact path='/myprofileedit' render={() => <MyProfileEdit profile={profile} user={user} onProfileEdit={ handleProfileEdit } loggedInStatus={ loggedInStatus } />}></Route>
         </div>
       </Switch>
       <br/>

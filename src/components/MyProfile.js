@@ -5,6 +5,7 @@ import './app/App.css';
 export default function MyProfile({profile}) {
 
     console.log('profile data', profile)
+    
 
 // <--- Add time user looked up info? --->
     //var time = new Date();
@@ -16,7 +17,7 @@ export default function MyProfile({profile}) {
                 return <h3>Calories: <span className='prop-color'>{profile.calories}</span> | Diet: <span className='prop-color'>{profile.diet}</span>  | Allergies: <span className='prop-color'>{profile.allergies}</span></h3>
     }
 
-// <--- ENDER currentUser FUNCTION TO ROUTE END --->
+// <--- RENDER currentUser FUNCTION TO ROUTE END --->
     
     
     return (
@@ -32,7 +33,6 @@ export default function MyProfile({profile}) {
                 <h3>Current Daily Calorie Target: { profile.calories }</h3>
                 <h3>Allergies: { profile.allergies }</h3>
                 <h3>Diet: { profile.diet }</h3><br/>
-
             </div>
         </div>
     )

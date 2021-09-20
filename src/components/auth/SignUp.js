@@ -119,7 +119,9 @@ export default function SignUp({ handleLogin }) {
                 <br /><br />
                 <Link to="/login">SignIn</Link>
             </form>
- 
+            <div>
+                {error ? handleErrors() : null}
+            </div>
         </ >
     );
 }
