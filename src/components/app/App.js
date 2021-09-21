@@ -173,7 +173,6 @@ export default function App() {
     setUser(data.user);
     setProfile(data.user_data.profile)
     setMeals(data.user_data.meals)
-    // setNutrients(data.)
   }
 
   const handleLogout = () => {

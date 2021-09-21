@@ -4,9 +4,9 @@ import MyProfileEdit from './MyProfileEdit';
 import './app/App.css';
 
 
-export default function MyProfile({profile, nutrients}) {
+export default function MyProfile({profile}) {
 
-    console.log('profile data', profile)
+    console.log('MyProfile profile data', profile)
     
 
 // <--- Add time user looked up info? --->
@@ -24,8 +24,11 @@ export default function MyProfile({profile, nutrients}) {
     
     return (
         <div className='page-body'>
-            <h1 className='my-profile'>MY PROFILE</h1>
-            <div className='inner-body'>
+            <div className="upper-body">
+                <h1 className='my-profile'>MY PROFILE</h1>
+                <Link to='/myprofile/edit' className='my-profile-edit' style={{ marginLeft: "auto" }}>Edit Profile</Link>
+            </div>
+            <div className='lower-body'>
                 {renderCurrentUser()}
 
                 <h3>Name: <span className='prop-color'>{profile.name}</span></h3>
@@ -37,16 +40,18 @@ export default function MyProfile({profile, nutrients}) {
                 <h3>Target Weight: <span className='prop-color'>{profile.target_weight}</span></h3>
 
                 <h3>Current Daily Calorie Target: <span className='prop-color'>{profile.calories}</span></h3>
-                    <ul>
-                        <li>Protein: <span className='prop-color dropdown'>{nutrients.protien}</span></li>
-                        <li>Carbohydrates: <span className='prop-color'>{nutrients.carbohydrates}</span></li>
-                        <li>Fat: <span className='prop-color'>{nutrients.fat}</span></li>
-                    </ul>
+
+                <h3>Protein: <span className='prop-color'>{profile.protein}</span></h3>
+
+                <h3>Carbohydrates: <span className='prop-color'>{profile.carbohydrates}</span></h3>
+
+                <h3>Fat: <span className='prop-color'>{profile.fat}</span></h3>
+              
                 <h3>Allergies: <span className='prop-color'>{profile.allergies}</span></h3>
 
                 <h3>Diet: <span className='prop-color'>{profile.diet}</span></h3>
             </div>
-            <Link to='/myprofile/edit' className='btn'>Edit Profile</Link>
+            
         </div>
     )
 };
