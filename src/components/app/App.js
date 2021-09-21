@@ -22,8 +22,8 @@ export default function App() {
   const [time, setTime] = useState('day')
   const handleTimeChange = (e) => {
     setTime(e.target.value);
-    console.log(e.target)
-    console.log(e.target.value)
+    // console.log(e.target)
+    // console.log(e.target.value)
   }
 
   const [calories, setCalories] = useState(0)
@@ -47,6 +47,7 @@ export default function App() {
   
   const [user, setUser] = useState({})
   const [profile, setProfile] = useState({})
+  const [nutrients, setNutrients] = useState({})
   const [meals, setMeals] = useState([])
   // console.log({user: user, profile: profile, meals: meals})
    
@@ -57,7 +58,7 @@ export default function App() {
 //<--- INITIAL GET REQUEST FROM EXTERNAL API START --->
   
   
-  const fetchMeals = (url) => {
+  const fetchMealsNutrients = (url) => {
     const configObj = {
       "method": "GET",
       "headers": {
@@ -74,9 +75,10 @@ export default function App() {
 
         //<--- POST REQUEST FETCHED EXTERNAL API MEAL DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE START --->
           
-              
+        // console.log('fetchMealsNutrients - before the forEach', data)
         data.meals.forEach(meal => {
-          console.log(data)
+          // console.log('fetchMealsNutrients - data.meals.forEach (meal=>) - meal', meal)
+
           const { title, readyInMinutes, servings, sourceUrl } = meal
           const mealDataPost = {
             title: title,
@@ -86,7 +88,8 @@ export default function App() {
             favorite: false,
             user_id: user.id
           }
-          console.log(mealDataPost)
+
+          console.log('fetchMealsNutrients - data.meals.forEach (meal) - mealDataPost', mealDataPost)
           let config = {
             method: 'POST',
             headers: {
@@ -99,12 +102,46 @@ export default function App() {
 
 
           // <--- POST REQUEST FETCHED EXTERNAL API MEAL DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE END --->
+
+
+          
                 
                 
           // CALLING "GET REQUEST meals AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER NEW EXTERNAL API GET REQUEST
-          handleFetchedUserInfo()
+          // handleFetchedUserInfo()
           // handleFetchedUsersMealsProfiles()
         })
+
+        //<--- POST REQUEST FETCHED EXTERNAL API NUTRIENT DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE START --->
+          
+          // console.log('fetchMealsNutrients - data.nutrients', data.nutrients)
+          const { calories, protein, fat, carbohydrates } = data.nutrients
+          const nutrientDataPost = {
+            calories: calories,
+            protein: protein,
+            fat: fat,
+            carbohydrates: carbohydrates
+          }
+
+          console.log('nutrientDataPost', nutrientDataPost)
+          // let config = {
+          //   method: 'POST',
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //     "Accepts": "application/json"
+          //   },
+          //   body: JSON.stringify(nutrientDataPost)
+          // }
+          // fetch("/profile", config)
+
+
+          // <--- POST REQUEST FETCHED EXTERNAL API NUTRIENT DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE END --->
+                
+                
+          // CALLING "GET REQUEST meals AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER NEW EXTERNAL API GET REQUEST
+          // handleFetchedUserInfo()
+          // handleFetchedUsersMealsProfiles()
+
       })
       .catch(err => console.error(err))
   }
@@ -127,7 +164,7 @@ export default function App() {
           handleLogout()
         }
       })
-      .catch(err => console.log('api errors:', err))
+      .catch(err => console.log('loggedInStatus - .catch - api errors:', err))
   }
   useEffect(loggedInStatus, [])
 
@@ -136,6 +173,7 @@ export default function App() {
     setUser(data.user);
     setProfile(data.user_data.profile)
     setMeals(data.user_data.meals)
+    // setNutrients(data.)
   }
 
   const handleLogout = () => {
@@ -152,7 +190,7 @@ export default function App() {
 
   
   const handleProfileEdit = (data) => {
-    console.log(data.profile)
+    console.log('handleProfileEdit - data.profile', data.profile)
     setProfile(data.profile)
   }
 
@@ -163,22 +201,22 @@ export default function App() {
 // <--- POST REQUEST INPUTED USER PROFILE DATA TO USER PROFILE ENDPOINT IN POSTGRES DATABASE START --->
 
   
-  const handleFetchedUserInfo = () => {
-    const userInputFromState = {
-      calories: calories,
-      allergies: allergies,
-      diet: diet
-    }
-    let config = {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-        "Accepts": "application/json"
-      },
-      body: JSON.stringify(userInputFromState)
-    }
-    fetch("/profile", config)
-  }
+  // const handleFetchedUserInfo = () => {
+  //   const userInputFromState = {
+  //     calories: calories,
+  //     allergies: allergies,
+  //     diet: diet
+  //   }
+  //   let config = {
+  //     method: 'POST',
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Accepts": "application/json"
+  //     },
+  //     body: JSON.stringify(userInputFromState)
+  //   }
+  //   fetch("/profile", config)
+  // }
 
 
 // <--- POST REQUEST INPUTED USER PROFILE DATA TO USER PROFILE ENDPOINT IN POSTGRES DATABASE END --->
@@ -246,7 +284,7 @@ export default function App() {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     const url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/mealplans/generate?targetCalories=" + calories + "&timeFrame=" + time + "&diet=" + diet + "&exclude=" + allergies
-    fetchMeals(url)
+    fetchMealsNutrients(url)
     
     //REDIRECT AFTER SUBMIT BUTTON
     return history.push('./mymeals/');
@@ -275,7 +313,7 @@ export default function App() {
     //userIds.forEach(userId => fetch('/users/' + userId, config))
 
     // CALLING "GET REQUEST meals AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER DB.JSON DELETE REQUEST
-    handleFetchedUserInfo()
+    // handleFetchedUserInfo()
     // handleFetchedUsersMealsProfiles()
   }
 
@@ -289,7 +327,6 @@ export default function App() {
         <Route exact path='/signup' render={() => <SignUp handleLogin={ handleLogin } loggedInStatus={ loggedInStatus } ></SignUp>}></Route>
         <Route exact path='/login' render={() => <LogIn handleLogin={ handleLogin } loggedInStatus={ loggedInStatus } ></LogIn>}></Route>
         <Route exact path='/logout' render={() => <LogOut></LogOut>}></Route>
-        <Route exact path='/myprofile/edit' render={() => <MyProfileEdit onProfileEdit={ handleProfileEdit } profile={profile} user={user} />}></Route>
         <div>
           <nav className='navbar'>
             <div className='nav-container'>
@@ -300,9 +337,11 @@ export default function App() {
               <Link to='/' className='nav-item'>Home</Link>
             </div>
           </nav>
-          <Route exact path='/' render={() => <Home currentUser={ user } onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
+          <Route exact path='/' render={() => <Home currentUser={ user } profile={ profile } onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
           <Route exact path='/mymeals' render={() => <MyMeals currentUser={ user } meals={ meals } onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
           <Route exact path='/myprofile' render={() => <MyProfile profile={profile} />}></Route>
+          <Route exact path='/myprofile/edit' render={() => <MyProfileEdit onProfileEdit={handleProfileEdit} profile={profile} user={user} nutrients={nutrients}/>}></Route>
+
         </div>
       </Switch>
       <br/>

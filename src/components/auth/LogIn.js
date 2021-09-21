@@ -32,7 +32,7 @@ function LogIn({ handleLogin, loggedInStatus }) {
         fetch("/login", config)
             .then(res => res.json())
             .then(data => {
-                // console.log('login data', data)
+                console.log('onSubmit - /login fetch', data)
                 if (data.logged_in) {
                     handleLogin(data)
                     redirect()

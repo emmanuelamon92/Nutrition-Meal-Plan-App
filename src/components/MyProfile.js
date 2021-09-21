@@ -4,10 +4,9 @@ import MyProfileEdit from './MyProfileEdit';
 import './app/App.css';
 
 
-export default function MyProfile({profile}) {
+export default function MyProfile({profile, nutrients}) {
 
     console.log('profile data', profile)
-    const [editedProfile, setEditedProfile] = useState({...profile})
     
 
 // <--- Add time user looked up info? --->
@@ -17,7 +16,7 @@ export default function MyProfile({profile}) {
 // <--- RENDER currentUser FUNCTION TO ROUTE START --->
     
     const renderCurrentUser = () => {
-                return <h3>Calories: <span className='prop-color'>{editedProfile.calories}</span> | Diet: <span className='prop-color'>{editedProfile.diet}</span>  | Allergies: <span className='prop-color'>{editedProfile.allergies}</span></h3>
+                return <h3>Calories: <span className='prop-color'>{profile.calories}</span> | Diet: <span className='prop-color'>{profile.diet}</span>  | Allergies: <span className='prop-color'>{profile.allergies}</span></h3>
     }
 
 // <--- RENDER currentUser FUNCTION TO ROUTE END --->
@@ -38,7 +37,11 @@ export default function MyProfile({profile}) {
                 <h3>Target Weight: <span className='prop-color'>{profile.target_weight}</span></h3>
 
                 <h3>Current Daily Calorie Target: <span className='prop-color'>{profile.calories}</span></h3>
-
+                    <ul>
+                        <li>Protein: <span className='prop-color dropdown'>{nutrients.protien}</span></li>
+                        <li>Carbohydrates: <span className='prop-color'>{nutrients.carbohydrates}</span></li>
+                        <li>Fat: <span className='prop-color'>{nutrients.fat}</span></li>
+                    </ul>
                 <h3>Allergies: <span className='prop-color'>{profile.allergies}</span></h3>
 
                 <h3>Diet: <span className='prop-color'>{profile.diet}</span></h3>

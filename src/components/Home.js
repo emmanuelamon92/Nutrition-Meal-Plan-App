@@ -36,6 +36,29 @@ export default function Home(props) {
                 </form>
             </div>
         </>
+        // <>
+        //     <h1>Sign In</h1>
+        //     <form onSubmit={handleSubmit(onSubmit)}>
+        //         <div>
+        //             <div className="mb-3" controlId="form_basic_username">
+        //                 <input type="username" placeholder="Username" {...register("username", {required: true})} />
+        //                 {/* {errors.username && errors.username.type === "required" && <span>This is required</span>} */}
+        //             </div>
+        //             <div className="mb-3" controlId="form_basic_password_sign_in">
+        //                 <br />
+        //                 <input type="password" placeholder="Password" {...register("password", {required: true})}/>
+        //                 {/* {errors.password && errors.password.type === "required" && <span>This is required</span>} */}
+        //             </div>
+        //             <br />
+        //             <button variant="primary" type="submit">Sign In</button>
+        //             <br /><br />
+        //             <Link to="/signup">Create New Account</Link>
+        //         </div>
+        //     </form>
+        //     <div>
+        //         {error ? handleErrors() : null}
+        //     </div>
+        // </ >
     );
     
 }
