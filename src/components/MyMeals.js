@@ -5,12 +5,9 @@ import './app/App.css';
 export default function MyMeals(props) {
     
     const { meals, onDeleteAllMeals } = props
-    console.log('meals data', meals)
 
 
 //<--- CLEAR BUTTON RENDER TO SCREEN FUNCTION START --->
-    
-    
     const clearButton = () => {
         if (meals.length !== 0) {
             // console.log("not empty")
@@ -20,19 +17,14 @@ export default function MyMeals(props) {
             return <h2 className="empty">No Recipes Yet!</h2>
         }
     }
-
-
 //<--- CLEAR BUTTON RENDER TO SCREEN FUNCTION END --->
     
     
 // <--- RENDER MEAL DATA TO MYMEALS ROUTE START --->
-
-
     const renderMeals = () => {
         let count = 0
         return meals.map(meal => {
             let url = `${meal.sourceUrl}`;
-            // console.log(meal.title)
             if (meal.id % 3 === 1) {
                 count += 1
                 return (
@@ -51,8 +43,6 @@ export default function MyMeals(props) {
 
         })
     }
-
-
 // <--- RENDER MEAL DATA TO MYMEALS ROUTE END --->
  
     

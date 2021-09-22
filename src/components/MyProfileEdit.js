@@ -7,51 +7,37 @@ import { useForm } from "react-hook-form";
 export default function MyProfileEdit({profile, user, onProfileEdit}) {
 
     const [error, setError] = useState('')
-
-    // let { path, url } = useRouteMatch()
-    // console.log('path', path, 'url', url)
-
-    console.log('edit profile data', profile)
-    console.log('edit profile user data', user)
-
     const { register, handleSubmit, setValue } = useForm();
-    
     const history = useHistory()
-
     const redirect = () => {
         history.push('/myprofile')
     }
 
-    // useEffect(loggedInStatus ? redirect() : null, [])
-    
-//<--- PUT REQUEST START --->
-    
 
-const onSubmit = (editedInfo) => {
-    console.log(editedInfo)
-    let config = {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accepts': 'application/json'
-        },
-        body: JSON.stringify(editedInfo)
+// <--- PUT REQUEST USER MY PROFILE EDITED INFO START --->
+    const onSubmit = (editedInfo) => {
+        let config = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accepts': 'application/json'
+            },
+            body: JSON.stringify(editedInfo)
+        }
+        fetch(`/user/${user.id}/profile`, config)
+            .then(res => res.json())
+            .then(data => {
+                if (data.profile_updated) {
+                    onProfileEdit(data)
+                    redirect()
+                } else {
+                    setError(data.errors)
+                }
+            })
+            .catch(err => console.log(err))
     }
-    fetch(`/user/${user.id}/profile`, config)
-        .then(res => res.json())
-        .then(data => {
-            console.log('my profile edited',data)
-            if (data.profile_updated) {
-                onProfileEdit(data)
-                redirect()
-            } else {
-                setError(data.errors)
-            }
-          })
-        .catch(err => console.log(err))
-}
+// <--- PUT/PATCH USER MY PROFILE REQUEST END --->
     
-//<--- PUT/PATCH REQUEST END --->
     
     const handleErrors = () => {
         return (
