@@ -24,6 +24,7 @@ export default function MyMeals(props) {
     const renderMeals = () => {
         let count = 0
         return meals.map(meal => {
+            console.log(meal.id)
             let url = `${meal.sourceUrl}`;
             if (meal.id % 3 === 1) {
                 count += 1

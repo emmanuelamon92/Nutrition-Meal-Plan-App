@@ -17,6 +17,7 @@ export default function App() {
   const [time, setTime] = useState('day')
   const handleTimeChange = (e) => {
     setTime(e.target.value);
+
   }
 
   const [calories, setCalories] = useState(0)
@@ -43,7 +44,6 @@ export default function App() {
   console.log(profile)
   const [nutrients, setNutrients] = useState({})
   const [meals, setMeals] = useState([])
-  console.log(profile)
   const [error, setError] = useState('')
 // <--- STATE DECLARATIONS END --->
 
@@ -87,27 +87,27 @@ export default function App() {
           // handleFetchedUserInfo()
           // handleFetchedUsersMealsProfiles()
         })
-        // <--- POST REQUEST FETCHED EXTERNAL API NUTRIENT DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE START --->
-          const { calories, protein, fat, carbohydrates } = data.nutrients
-          const nutrientDataPost = {
-            calories: calories,
-            protein: protein,
-            fat: fat,
-            carbohydrates: carbohydrates
-          }
-          let config = {
-            method: 'PUT',
-            headers: {
-              "Content-Type": "application/json",
-              "Accepts": "application/json"
-            },
-            body: JSON.stringify(nutrientDataPost)
-          }
-          console.log('nutrientDataPost', nutrientDataPost, user.id)
-          fetch("/user/${user.id}/profile", config)
+        // <--- PUT REQUEST FETCHED EXTERNAL API NUTRIENT DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE START --->
+          // const { calories, protein, fat, carbohydrates } = data.nutrients
+          // const nutrientDataPost = {
+          //   calories: calories,
+          //   protein: protein,
+          //   fat: fat,
+          //   carbohydrates: carbohydrates
+          // }
+          // let config = {
+          //   method: 'PUT',
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //     "Accepts": "application/json"
+          //   },
+          //   body: JSON.stringify(nutrientDataPost)
+          // }
+          // console.log('nutrientDataPost', nutrientDataPost, user.id)
+          // fetch("/user/${user.id}/profile", config)
           // <--- POST REQUEST FETCHED EXTERNAL API NUTRIENT DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE END --->
           // **CALLING "GET REQUEST MEALS AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER NEW EXTERNAL API GET REQUEST**
-          // handleFetchedUserInfo()
+          handleFetchedUserInfo()
           // handleFetchedUsersMealsProfiles()
       })
       .catch(err => console.error(err))
@@ -158,34 +158,34 @@ export default function App() {
 // <--- SENDING EDITED MYPROFILE DATA TO STATE END --->
 
 
-// <--- POST REQUEST INPUTED USER PROFILE DATA TO USER PROFILE ENDPOINT IN POSTGRES DATABASE START --->
-  // const handleFetchedUserInfo = () => {
-  //   const userInputFromState = {
-  //     calories: calories,
-  //     allergies: allergies,
-  //     diet: diet
-  //   }
-  //   let config = {
-  //     method: 'PUT',
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Accepts": "application/json"
-  //     },
-  //     body: JSON.stringify(userInputFromState)
-  //   }
-  //   fetch(`/user/${user.id}/profile`, config)
-  //           .then(res => res.json())
-  //           .then(data => {
-  //               console.log('my profile edited',data)
-  //               if (data.profile_updated) {
-  //                   handleProfileEdit(data)
-  //               } else {
-  //                   setError(data.errors)
-  //               }
-  //           })
-  //           .catch(err => console.log(err))
-  //   }
-// <--- POST REQUEST INPUTED USER PROFILE DATA TO USER PROFILE ENDPOINT IN POSTGRES DATABASE END --->
+// <--- PUT REQUEST INPUTED USER PROFILE DATA TO USER PROFILE ENDPOINT IN POSTGRES DATABASE START --->
+  const handleFetchedUserInfo = () => {
+    const userInputFromState = {
+      calories: calories,
+      allergies: allergies,
+      diet: diet
+    }
+    let config = {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json",
+        "Accepts": "application/json"
+      },
+      body: JSON.stringify(userInputFromState)
+    }
+    fetch(`/user/${user.id}/profile`, config)
+            .then(res => res.json())
+            .then(data => {
+                console.log('edited data from form',data)
+                if (data.profile_updated) {
+                    handleProfileEdit(data)
+                } else {
+                    setError(data.errors)
+                }
+            })
+            .catch(err => console.log(err))
+    }
+// <--- PUT REQUEST INPUTED USER PROFILE DATA TO USER PROFILE ENDPOINT IN POSTGRES DATABASE END --->
 
 
 // <--- GET REQUEST MEALS AND USERINFO FROM POSTGRES DATABASE START --->
@@ -237,6 +237,7 @@ export default function App() {
   const mealIds = meals.map(meal => meal.id)
   // const userIds = userInfo.map(input => input.id)
   const handleDeleteAllMeals = () => {
+    console.log(user.id)
     let config = {
       method: 'DELETE',
       headers: {
@@ -244,8 +245,9 @@ export default function App() {
         "Accepts": "application/json"
       },
     }
-    mealIds.forEach(mealId => fetch('/users/' + mealId, config))
-    mealIds.forEach(mealId => fetch('/meals/' + mealId, config))
+    fetch(`/user/${user.id}/profile`, config)
+    // mealIds.forEach(mealId => fetch('/users/' + mealId, config))
+    // mealIds.forEach(mealId => fetch('/meals/' + mealId, config))
     // userIds.forEach(userId => fetch('/users/' + userId, config))
     // **CALLING "GET REQUEST MEALS AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER DB.JSON DELETE REQUEST**
     // handleFetchedUserInfo()
