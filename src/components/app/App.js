@@ -173,7 +173,7 @@ export default function App() {
       },
       body: JSON.stringify(userInputFromState)
     }
-    fetch(`/user/${user.id}/profile`, config)
+    fetch(`/user/${profile.id}/profile`, config)
             .then(res => res.json())
             .then(data => {
                 console.log('edited data from form',data)
@@ -272,9 +272,9 @@ export default function App() {
               <Link to='/' className='nav-item'>Home</Link>
             </div>
           </nav>
-          <Route exact path='/' render={() => <Home currentUser={ user } profile={ profile } onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
-          <Route exact path='/mymeals' render={() => <MyMeals currentUser={ user } meals={ meals } onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
-          <Route exact path='/myprofile' render={() => <MyProfile profile={profile} />}></Route>
+          <Route exact path='/' render={() => <Home user={ user } profile={ profile } onSubmitForm={ handleSubmitForm } onTimeChange={ handleTimeChange } onCaloriesChange={ handleCaloriesChange } onDietChange={ handleDietChange } onAllergiesChange={ handleAllergiesChange }/>}></Route>
+          <Route exact path='/mymeals' render={() => <MyMeals user={ user } meals={ meals } onDeleteAllMeals={ handleDeleteAllMeals } />}></Route>
+          <Route exact path='/myprofile' render={() => <MyProfile profile={profile} user={ user }/>}></Route>
           <Route exact path='/myprofile/edit' render={() => <MyProfileEdit onProfileEdit={handleProfileEdit} profile={profile} user={user} nutrients={nutrients}/>}></Route>
         </div>
       </Switch>

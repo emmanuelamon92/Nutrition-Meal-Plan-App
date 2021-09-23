@@ -5,11 +5,11 @@ import './app/App.css';
 export default function Home(props) {
 
     const { profile, time, currentUser, calories, onCaloriesChange, diet, onDietChange, allergies, onAllergiesChange, onSubmitForm } = props
-    console.log('Home', profile.calories)
+    // console.log('Home', profile.calories)
     return (
         <>
             <div className='page-body'>
-                <h1 className='home'>Welcome {currentUser.username}! I'm Your Meal Assistant! { time }</h1>
+                <h1 className='home'>Welcome {profile.name}! I'm Your Meal Assistant! { time }</h1>
                 <form onSubmit={onSubmitForm} className='form' id='userNutritionInfoForm' autoComplete='off'>
                     {/*Meals for Day or Week*/}
                     <label>Select your meal plan for the day!</label><br/>

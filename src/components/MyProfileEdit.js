@@ -24,7 +24,7 @@ export default function MyProfileEdit({profile, user, onProfileEdit}) {
             },
             body: JSON.stringify(editedInfo)
         }
-        fetch(`/user/${user.id}/profile`, config)
+        fetch(`/user/${profile.id}/profile`, config)
             .then(res => res.json())
             .then(data => {
                 if (data.profile_updated) {

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './app/App.css';
 
 
-export default function MyProfile({profile}) {
+export default function MyProfile({profile, user}) {
 
     console.log('MyProfile profile data', profile)
     
@@ -15,6 +15,7 @@ export default function MyProfile({profile}) {
             </div>
             <div className='lower-body'>
                 <h3>Calories: <span className='prop-color'>{profile.calories}</span> | Diet: <span className='prop-color'>{profile.diet}</span>  | Allergies: <span className='prop-color'>{profile.allergies}</span></h3>
+                <h3>Username: <span className='prop-color'>{user.username}</span></h3>
                 <h3>Name: <span className='prop-color'>{profile.name}</span></h3>
                 <h3>Age: <span className='prop-color'>{profile.age}</span></h3>
                 <h3>Current Weight: <span className='prop-color'>{profile.current_weight}</span></h3>
