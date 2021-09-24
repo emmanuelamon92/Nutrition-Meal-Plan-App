@@ -5,7 +5,6 @@ App designed to help you search a recipe api by the your target calories for the
 - Implemented React Router and Hooks for state and route management.
 - Employs RESTful API
 
-- Utilizes Bcrypt and Rails Authentication for secure Sign-in and Sign-up
 <img width="1280" alt="Screen Shot 2021-09-24 at 1 46 32 PM" src="https://user-images.githubusercontent.com/28957712/134724502-2c857e83-389a-49e5-aeb3-961921b37014.png">
 
 <img width="1280" alt="Screen Shot 2021-09-24 at 1 46 19 PM" src="https://user-images.githubusercontent.com/28957712/134724523-ecd43846-7b2e-4a45-996f-a47906b043fb.png">
