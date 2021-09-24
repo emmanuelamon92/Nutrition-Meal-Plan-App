@@ -4,7 +4,7 @@ App designed to help you search a recipe api by the your target calories for the
 - Built with JavaScript, React, CSS, Bootstrap
 - Implemented React Router and Hooks for state and route management.
 - Employs RESTful API
-- 
+
 Nutritional Meal Plan App Backend -> https://github.com/emmanuelamon92/Nutrition-Meal-Plan-App-Rails
 
 <img width="1280" alt="Screen Shot 2021-09-24 at 1 46 32 PM" src="https://user-images.githubusercontent.com/28957712/134724502-2c857e83-389a-49e5-aeb3-961921b37014.png">
