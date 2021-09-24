@@ -35,8 +35,6 @@ html {
   font-size: 20px;
 }
 
-
-
 .errorList {
   color: red;
   margin: 0px;
@@ -47,7 +45,7 @@ html::after {
   content: "";
   filter: blur(75px);
   -webkit-filter: blur(75px);
-  height: 100vh;
+  height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -115,7 +113,7 @@ label {
   color: white;
 }
 
-.page-body {
+/* .page-body {
   position: relative;
   text-align: center;
   background-color: rgb(14, 27, 37);
@@ -124,4 +122,4 @@ label {
   padding: 0px 20px 5px 20px;
   margin-top: 50px;
   border-radius: 10%;
-}
+} */
