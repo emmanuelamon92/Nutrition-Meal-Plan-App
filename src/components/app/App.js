@@ -41,9 +41,10 @@ export default function App() {
   
   const [user, setUser] = useState({})
   const [profile, setProfile] = useState({})
-  console.log(profile)
+  console.log('44 app profile', profile)
   const [nutrients, setNutrients] = useState({})
   const [meals, setMeals] = useState([])
+  console.log('47 app meals', meals)
   const [error, setError] = useState('')
 // <--- STATE DECLARATIONS END --->
 
@@ -81,34 +82,14 @@ export default function App() {
             },
             body: JSON.stringify(mealDataPost)
           }
-          fetch("/meals", config)
+          console.log('85 mealDataPost: ', mealDataPost)
+          fetch(`/user/${user.id}/meals`, config)
+            .then(res => res.json())
+            .then(data => setMeals(data.meals))
           // <--- POST REQUEST FETCHED EXTERNAL API MEAL DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE END --->
-          // CALLING "GET REQUEST meals AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER NEW EXTERNAL API GET REQUEST
-          // handleFetchedUserInfo()
-          // handleFetchedUsersMealsProfiles()
         })
-        // <--- PUT REQUEST FETCHED EXTERNAL API NUTRIENT DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE START --->
-          // const { calories, protein, fat, carbohydrates } = data.nutrients
-          // const nutrientDataPost = {
-          //   calories: calories,
-          //   protein: protein,
-          //   fat: fat,
-          //   carbohydrates: carbohydrates
-          // }
-          // let config = {
-          //   method: 'PUT',
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //     "Accepts": "application/json"
-          //   },
-          //   body: JSON.stringify(nutrientDataPost)
-          // }
-          // console.log('nutrientDataPost', nutrientDataPost, user.id)
-          // fetch("/user/${user.id}/profile", config)
-          // <--- POST REQUEST FETCHED EXTERNAL API NUTRIENT DATA TO RECIPE ENDPOINT IN POSTGRES DATABASE FILE END --->
           // **CALLING "GET REQUEST MEALS AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER NEW EXTERNAL API GET REQUEST**
           handleFetchedUserInfo()
-          // handleFetchedUsersMealsProfiles()
       })
       .catch(err => console.error(err))
   }
@@ -126,7 +107,7 @@ export default function App() {
           handleLogout()
         }
       })
-      .catch(err => console.log('loggedInStatus - .catch - api errors:', err))
+      .catch(err => console.log(err))
   }
   useEffect(loggedInStatus, [])
 // <--- GET REQUEST LOGIN END --->
@@ -176,7 +157,7 @@ export default function App() {
     fetch(`/user/${profile.id}/profile`, config)
             .then(res => res.json())
             .then(data => {
-                console.log('edited data from form',data)
+                console.log('183 app data',data)
                 if (data.profile_updated) {
                     handleProfileEdit(data)
                 } else {
@@ -186,39 +167,6 @@ export default function App() {
             .catch(err => console.log(err))
     }
 // <--- PUT REQUEST INPUTED USER PROFILE DATA TO USER PROFILE ENDPOINT IN POSTGRES DATABASE END --->
-
-
-// <--- GET REQUEST MEALS AND USERINFO FROM POSTGRES DATABASE START --->
-  // const handleFetchedUsersMealsProfiles = () => {
-  //   // <--- GET REQUEST MEALS FOR SPECIFIC USER START --->
-  //   fetch(`/user/${user.id}/meals`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log('meal data', data)
-  //       setMeals([...data])
-  //     })
-  //     .catch(err => console.error(err))
-  //   // <--- GET REQUEST MEALS FOR SPECIFIC USER END --->
-  //   // <--- GET REQUEST SPECIFIC USER DATA START --->
-  //   fetch(`/user/${user.id}`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log('user data', data)
-  //       setUser({...data})
-  //     })
-  //     .catch(err => console.error(err))
-  //   // <--- GET REQUEST SPECIFIC USER DATA END --->
-  //   // <--- GET REQUEST PROFILE FOR SPECIFIC USER START --->
-  //   fetch(`/user/${user.id}/profile`, {mode: 'cors'})
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log('profile data', data)
-  //       setProfile({...data})
-  //     })
-  //     .catch(err => console.error(err))
-  // }
-  // // <--- GET REQUEST PROFILE FOR SPECIFIC USER END --->
-// <--- GET REQUEST MEALS AND USERINFO FROM POSTGRES DATABASE END --->
   
   
 // <--- SUBMIT HANDLER START --->
@@ -234,24 +182,15 @@ export default function App() {
 
   
 // <--- CLEAR DB.JSON FILE DATABASE START --->
-  const mealIds = meals.map(meal => meal.id)
-  // const userIds = userInfo.map(input => input.id)
   const handleDeleteAllMeals = () => {
-    console.log(user.id)
+    console.log(`245 http://localhost:3001/user/${user.id}/meals`)
     let config = {
-      method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json",
-        "Accepts": "application/json"
-      },
+      method: 'DELETE'
     }
-    fetch(`/user/${user.id}/profile`, config)
-    // mealIds.forEach(mealId => fetch('/users/' + mealId, config))
-    // mealIds.forEach(mealId => fetch('/meals/' + mealId, config))
-    // userIds.forEach(userId => fetch('/users/' + userId, config))
-    // **CALLING "GET REQUEST MEALS AND USERINFO FROM DB.JSON FILE" FUNCTION TO UPDATE/RERENDER AFTER DB.JSON DELETE REQUEST**
-    // handleFetchedUserInfo()
-    // handleFetchedUsersMealsProfiles()
+    fetch(`/user/${user.id}/meals`, config)
+      .then(res => res.json())
+      .then(data => setMeals(data.meals))
+      .catch(err => console.log(err))
   }
 // <--- CLEAR DB.JSON FILE DATABASE END --->
 

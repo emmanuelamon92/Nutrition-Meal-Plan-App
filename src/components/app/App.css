@@ -45,17 +45,18 @@ html::after {
   content: "";
   filter: blur(75px);
   -webkit-filter: blur(75px);
+  /* backdrop-filter: blur(75px); */
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   background-color: rgb(14, 27, 37);
-  opacity: 0.80;
+  opacity: 0.90;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  position: fixed;
+  position: relative;
   z-index: -1;
 }
 

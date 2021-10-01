@@ -9,11 +9,8 @@ export default function MyProfile({profile, user}) {
     
     return (
         <div className='page-body'>
-            <div className="upper-body">
-                <h1 className='my-profile'>MY PROFILE</h1>
+            <h1 className='my-profile'>MY PROFILE</h1>
                 <Link to='/myprofile/edit' className='my-profile-edit' style={{ marginLeft: "auto" }}>Edit Profile</Link>
-            </div>
-            <div className='lower-body'>
                 <h3>Calories: <span className='prop-color'>{profile.calories}</span> | Diet: <span className='prop-color'>{profile.diet}</span>  | Allergies: <span className='prop-color'>{profile.allergies}</span></h3>
                 <h3>Username: <span className='prop-color'>{user.username}</span></h3>
                 <h3>Name: <span className='prop-color'>{profile.name}</span></h3>
@@ -26,8 +23,6 @@ export default function MyProfile({profile, user}) {
                 <h3>Fat: <span className='prop-color'>{profile.fat}</span></h3>
                 <h3>Allergies: <span className='prop-color'>{profile.allergies}</span></h3>
                 <h3>Diet: <span className='prop-color'>{profile.diet}</span></h3>
-            </div>
-            
         </div>
     )
 };
