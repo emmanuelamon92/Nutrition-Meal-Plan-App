@@ -24,7 +24,8 @@
 }
 
 html {
-  background: url("../../img/lily-banse--YHSwy6uqvk-unsplash.jpg");
+  background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url("../../img/lily-banse--YHSwy6uqvk-unsplash.jpg");
+  /* background: url("../../img/lily-banse--YHSwy6uqvk-unsplash.jpg"); */
   background-size: cover;
 }
 
@@ -45,8 +46,10 @@ html::after {
   content: "";
   filter: blur(75px);
   -webkit-filter: blur(75px);
-  /* backdrop-filter: blur(75px); */
+  backdrop-filter: blur(75px);
   height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url("../../img/lily-banse--YHSwy6uqvk-unsplash.jpg");
+
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -64,8 +67,6 @@ body {
   padding: 0;
   margin: 0;
 }
-
-
 
 a:link,
 a:visited {
