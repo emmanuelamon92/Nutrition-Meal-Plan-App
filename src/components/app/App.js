@@ -41,10 +41,8 @@ export default function App() {
   
   const [user, setUser] = useState({})
   const [profile, setProfile] = useState({})
-  console.log('44 app profile', profile)
   const [nutrients, setNutrients] = useState({})
   const [meals, setMeals] = useState([])
-  console.log('47 app meals', meals)
   const [error, setError] = useState('')
 // <--- STATE DECLARATIONS END --->
 
@@ -82,7 +80,6 @@ export default function App() {
             },
             body: JSON.stringify(mealDataPost)
           }
-          console.log('85 mealDataPost: ', mealDataPost)
           fetch(`/user/${user.id}/meals`, config)
             .then(res => res.json())
             .then(data => setMeals(data.meals))
@@ -157,7 +154,6 @@ export default function App() {
     fetch(`/user/${profile.id}/profile`, config)
             .then(res => res.json())
             .then(data => {
-                console.log('183 app data',data)
                 if (data.profile_updated) {
                     handleProfileEdit(data)
                 } else {
@@ -183,7 +179,6 @@ export default function App() {
   
 // <--- CLEAR DB.JSON FILE DATABASE START --->
   const handleDeleteAllMeals = () => {
-    console.log(`245 http://localhost:3001/user/${user.id}/meals`)
     let config = {
       method: 'DELETE'
     }

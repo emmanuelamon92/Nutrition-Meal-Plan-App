@@ -14,8 +14,6 @@ function LogIn({ handleLogin, loggedInStatus }) {
     const redirect = () => {
         history.push('/')
     }
-
-    // useEffect(loggedInStatus ? redirect() : null, [])
     
     const onSubmit = (infoRegister) => {
         // e.preventDefault()

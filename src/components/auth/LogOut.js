@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
-// import "bootstrap/dist/css/bootstrap.min.css"
 
 
 const LogOut = () => {

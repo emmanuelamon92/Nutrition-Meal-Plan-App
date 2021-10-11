@@ -10,48 +10,7 @@ export default function SignUp({ handleLogin }) {
     const [currentUser, setCurrentUser] = useState('')
     const history = useHistory()
 
-    // const onSubmit = (infoRegister, e) => {
-    //     e.preventDefault()
-
-    //     //<--- POST USER REQUEST START --->
-    //     let config = {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Accepts': 'application/json'
-    //         },
-    //         body: JSON.stringify(infoRegister),
-    //         withCredentials: true
-    //     }
-    //     console.log(infoRegister.password)
-    //     fetch("/users", config)
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             //<-- POST TO SESSIONS START -->
-    //             let config = {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     'Accepts': 'application/json'
-    //                 },
-    //                 body: JSON.stringify({
-    //                     username: infoRegister.username,
-    //                     password: infoRegister.password
-    //                 })
-    //             }
-    //             fetch("/login", config)
-    //                 .then(res => res.json())
-    //                 .then(data => {console.log(data, 'Log in Successful')})
-    //                 .catch(err => {console.log(err, "Not able to log in!")})
-    //             history.push('/')
-    //             //<-- POST TO SESSIONS START -->
-    //         })
-    //         .catch(err => console.log(err))
-    //         //<--- POST USER REQUEST END --->
-    // }
-
     const onSubmit = (infoRegister) => {
-        // e.preventDefault()
     
         //<--- POST USER REQUEST START --->
         let config = {
@@ -101,17 +60,14 @@ export default function SignUp({ handleLogin }) {
                 <div>
                     <div className="mb-3" controlId="form_basic_username">
                         <input type="username" placeholder="Username" {...register("username", {required: true, message: 'Required'})}/>
-                        {/* {errors.username && errors.username.type === "required" && <span>This is required</span>} */}
                     </div>
                     <br />
                     <div className="mb-3" controlId="form_basic_password_sign_up">
                         <input type="password" placeholder="Password" {...register("password", {required: true})}/>
-                        {/* {errors.password && errors.password.type === "required" && <span>This is required</span>} */}
                     </div>
                     <br />
                     <div className="mb-3" controlId="form_basic_password_confirmation">
                         <input type="password" placeholder="Confirm Password" {...register("password_confirmation", {required: true})}/>
-                        {/* {errors.password_confirmation && errors.password_confirmation.type === "required" && <span>This is required</span>} */}
                     </div>
                 </div>
                 <br />
@@ -125,11 +81,3 @@ export default function SignUp({ handleLogin }) {
         </ >
     );
 }
-
-{/* <form onSubmit={onSubmit}>
-    <label>Email</label>
-    <input {...register("email")} placeholder="Email" />
-    <label>Password</label>
-    <input {...register("password")} placeholder="Password" />
-    <input type="submit" />
-</form> */}

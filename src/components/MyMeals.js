@@ -5,15 +5,12 @@ import './app/App.css';
 export default function MyMeals(props) {
     
     const { meals, onDeleteAllMeals } = props
-    console.log('8 mymeals meals: ', meals)
 
 //<--- CLEAR BUTTON RENDER TO SCREEN FUNCTION START --->
     const clearButton = () => {
         if (meals.length !== 0) {
-            // console.log("not empty")
             return <button onClick={onDeleteAllMeals}>CLEAR</button>
         } else {
-            // console.log("empty")
             return <h2 className="empty">No Recipes Yet!</h2>
         }
     }
@@ -24,13 +21,11 @@ export default function MyMeals(props) {
     const renderMeals = () => {
         let count = 0
         return meals.map(meal => {
-            // console.log('mealid 27: ', meal.id)
             let url = `${meal.sourceUrl}`;
             if (meal.id % 3 === 1) {
                 count += 1
                 return (
                     <div>
-                        {/* <p>Recipe Group: {count}</p> */}
                         <h3><a target="_blank" rel="noreferrer" href={url}>{meal.title}</a ></h3 >
                     </div>
                 )
@@ -46,7 +41,6 @@ export default function MyMeals(props) {
     }
     useEffect(renderMeals, [])
 // <--- RENDER MEAL DATA TO MYMEALS ROUTE END --->
- 
     
     return (
         <div className='page-body'>
